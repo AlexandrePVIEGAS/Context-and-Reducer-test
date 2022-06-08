@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id                  Int           @id @default(autoincrement())
+  first_name          String        @db.VarChar(40)
+  last_name           String        @db.VarChar(40)
+  email               String        @unique @db.VarChar(255)
+  password            String        @db.VarChar(255)
+  profile_picture_url String?       @db.VarChar(255)
+  biography           String?       @db.VarChar(125)
+  comments            comments[]
+  likes               likes[]
+  posts               posts[]
+  users_roles         users_roles[]
+}
+
+model roles {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
+  users_roles users_roles[]
+}
+
+model users_roles {
+  user_id Int
+  role_id Int
+  roles   roles @relation(fields: [role_id], references: [id], onDelete: Cascade, map: "users_roles_ibfk2")
+  users   users @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "users_roles_ibfk1")
+
+  @@id([user_id, role_id])
+  @@index([user_id], map: "users_roles_ibfk1")
+  @@index([role_id], map: "users_roles_ibfk2")
+}
+
+model posts {
+  id        Int        @id
+  message   String     @db.VarChar(255)
+  image_url String?    @db.VarChar(255)
+  user_id   Int
+  users     users      @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "posts_ibfk1")
+  comments  comments[]
+  likes     likes[]
+
+  @@index([user_id], map: "posts_ibfk1")
+}
+
+model comments {
+  id        Int     @id
+  message   String  @db.VarChar(255)
+  image_url String? @db.VarChar(255)
+  user_id   Int
+  post_id   Int
+  posts     posts   @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "comments_ibfk2")
+  users     users   @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "comments_ibfk1")
+
+  @@index([user_id], map: "comments_ibfk1")
+  @@index([post_id], map: "comments_ibfk2")
+}
+
+model likes {
+  id      Int   @id
+  user_id Int
+  post_id Int
+  posts   posts @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "likes_ibfk2")
+  users   users @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "likes_ibfk1")
+
+  @@index([user_id], map: "likes_ibfk1")
+  @@index([post_id], map: "likes_ibfk2")
+}
