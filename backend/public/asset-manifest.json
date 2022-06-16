@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/static/js/main.2411ac20.js",
+    "static/media/icon-left-font.svg": "/static/media/icon-left-font.ef487d9ecf86bb6f5d52b447378102b9.svg",
+    "index.html": "/index.html",
+    "main.2411ac20.js.map": "/static/js/main.2411ac20.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.2411ac20.js"
+  ]
+}

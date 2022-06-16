@@ -10,15 +10,15 @@ const updateUser = async (req, res, next) => {
         id: Number(req.params.id),
       },
       data: {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
+        lastName: req.body.lastName,
+        firstName: req.body.firstName,
         email: req.body.email,
         password: req.body.password,
-        profile_picture_url: req.body.profile_picture_url,
+        imageUrl: req.body.imageUrl,
         biography: req.body.biography,
       },
     });
-    res.status(200).json({ message: "User updated !" });
+    res.status(200).json({ message: "Utilisateur mis à jour !" });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -33,7 +33,7 @@ const deleteUser = async (req, res, next) => {
       },
     });
     res.clearCookie("Cookies have been deleted");
-    res.status(200).json({ message: "User " + user.first_name + " " + user.last_name + " deleted !" });
+    res.status(200).json({ message: "Utilisateur " + user.firstName + " " + user.lastName + " surprimé !" });
   } catch (error) {
     res.status(500).json({ error });
   }

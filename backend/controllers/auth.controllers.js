@@ -11,13 +11,13 @@ const signUp = async (req, res, next) => {
       where: { email: req.body.email },
     });
     if (user !== null) {
-      res.status(302).json({ error: "User found with this email" });
+      res.status(409).json({ error: "Utilisateur trouvé avec cet email !" });
     } else {
       req.body.password = await bcrypt.hash(req.body.password, 10);
       const user = await prisma.users.create({
         data: {
-          first_name: req.body.first_name,
-          last_name: req.body.last_name,
+          lastName: req.body.lastName,
+          firstName: req.body.firstName,
           email: req.body.email,
           password: req.body.password,
         },
@@ -28,11 +28,7 @@ const signUp = async (req, res, next) => {
           role_id: 2,
         },
       });
-      res.status(200).json({
-        message: "User created",
-        userId: user.id,
-        role: userRole.role_id,
-      });
+      res.status(200).json({ message: "Utilisateur crée !" });
     }
   } catch (error) {
     res.status(500).json({ error });
@@ -46,14 +42,14 @@ const login = async (req, res, next) => {
       where: { email: req.body.email },
     });
     if (user === null) {
-      res.status(404).json({ error: "User not found with this email" });
+      res.status(404).json({ email: "E-mail inconnu !" });
     } else {
       const valid = await bcrypt.compare(req.body.password, user.password);
       if (!valid) {
-        res.status(404).json({ error: "Incorrect password" });
+        res.status(404).json({ password: "Mot de passe incorrect !" });
       } else {
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
-        res.cookie("Token", token);
+        res.cookie("Token", token, { httpOnly: process.env.ENV === "DEV" ? false : true });
         res.status(200).json({
           userId: user.id,
           token: token,
@@ -67,8 +63,9 @@ const login = async (req, res, next) => {
 
 // Logout
 const logout = (req, res, next) => {
-  res.clearCookie("Cookies have been deleted");
-  return res.redirect("/signup");
+  res.clearCookie("Token");
+  res.status(200).json({ message: "Déconnexion réussie !" });
+  res.redirect("/");
 };
 
 module.exports = {

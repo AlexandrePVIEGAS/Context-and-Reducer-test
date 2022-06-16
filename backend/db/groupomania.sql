@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `message` varchar(255) NOT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
+  `imageUrl` varchar(255) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `message` varchar(255) NOT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
+  `imageUrl` varchar(255) DEFAULT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -79,11 +79,11 @@ CREATE TABLE `roles` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `first_name` varchar(40) NOT NULL,
-  `last_name` varchar(40) NOT NULL,
+  `lastName` varchar(40) NOT NULL,
+  `firstName` varchar(40) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `profile_picture_url` varchar(255) DEFAULT NULL,
+  `imageUrl` varchar(255) DEFAULT NULL,
   `biography` varchar(125) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -163,7 +163,7 @@ ALTER TABLE `likes`
 -- Dumping data
 --
 
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`)
+INSERT INTO `users` (`firstName`, `lastName`, `email`, `password`)
   VALUES
     ('ADMIN', 'ACCOUNT', 'admin@groupomania.fr', 'ADMIN');
 
