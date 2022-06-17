@@ -49,7 +49,7 @@ const login = async (req, res, next) => {
         res.status(404).json({ password: "Mot de passe incorrect !" });
       } else {
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
-        res.cookie("Token", token, { httpOnly: process.env.ENV === "DEV" ? false : true });
+        res.cookie("Token", token);
         res.status(200).json({
           userId: user.id,
           token: token,

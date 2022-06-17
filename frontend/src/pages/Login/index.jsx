@@ -22,9 +22,6 @@ function Login() {
         },
         body: JSON.stringify(userLogin),
       };
-      if (process.env.REACT_APP_ENV === "DEV") {
-        requestOptions.headers.Token = document.cookie;
-      }
       await fetch("http://localhost:3000/api/auth/login", requestOptions)
         .then((response) => response.json())
         .then((data) => {
