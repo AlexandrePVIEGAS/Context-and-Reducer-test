@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
-import Profil from "./pages/Profil";
+import Profile from "./pages/Profile";
 
 const GlobalStyle = createGlobalStyle`
     div {
@@ -20,7 +20,7 @@ root.render(
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/profil" element={<Profil />} />
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
     </Router>
   </React.StrictMode>

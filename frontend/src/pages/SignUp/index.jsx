@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { LogoImg, SuccessOrError, SignUpForm, SignUpDiv, SignUpInput, ErrorMsg, SignUpButton, RedirectToLogin } from "./style";
-import Logo from "../../assets/icon-left-font.svg";
+import Logo from "../../assets/icon-left-font.png";
+import { Img, SuccessOrError, Form, Div, Input, ErrorMsg } from "./style";
+import { Button } from "../../utils/styles/button";
 
 function SignUp() {
   const [userSignup, setUserSignup] = useState({
@@ -71,47 +72,55 @@ function SignUp() {
 
   return (
     <div>
-      <div className="container">
-        <LogoImg src={Logo} alt="logo" />
-        {Object.keys(formErrors).length === 0 && isSubmit ? (
-          <SuccessOrError success>Inscription réussie !</SuccessOrError>
-        ) : null}
-        {userExist ? <SuccessOrError error>Cet utilisateur existe déjà !</SuccessOrError> : null}
-        <SignUpForm onSubmit={handleSubmit}>
-          <SignUpDiv className="signup-form-input">
-            <label htmlFor="lastName">Nom</label>
-            <SignUpInput type="text" id="lastName" name="lastName" onChange={handleChange} required />
-            <ErrorMsg>{formErrors.lastName}</ErrorMsg>
-          </SignUpDiv>
+      <Link to="/">
+        <Img src={Logo} alt="logo" />
+      </Link>
 
-          <SignUpDiv className="signup-form-input">
-            <label htmlFor="firstName">Prénom</label>
-            <SignUpInput type="text" id="firstName" name="firstName" onChange={handleChange} required />
-            <ErrorMsg>{formErrors.firstName}</ErrorMsg>
-          </SignUpDiv>
+      {Object.keys(formErrors).length === 0 && isSubmit ? (
+        <SuccessOrError success>Inscription réussie !</SuccessOrError>
+      ) : null}
 
-          <SignUpDiv className="signup-form-input">
-            <label htmlFor="email">Email</label>
-            <SignUpInput type="email" id="email" name="email" onChange={handleChange} required />
-            <ErrorMsg>{formErrors.email}</ErrorMsg>
-          </SignUpDiv>
+      {Object.keys(formErrors).length === 0 && userExist ? (
+        <SuccessOrError error>Cet utilisateur existe déjà !</SuccessOrError>
+      ) : null}
 
-          <SignUpDiv className="signup-form-input">
-            <label htmlFor="password">Mot de passe</label>
-            <SignUpInput type="password" id="password" name="password" onChange={handleChange} required />
-            <ErrorMsg>{formErrors.password}</ErrorMsg>
-          </SignUpDiv>
+      <Form onSubmit={handleSubmit}>
+        <Div>
+          <label htmlFor="lastName">Nom</label>
+          <Input type="text" id="lastName" name="lastName" onChange={handleChange} required />
+          <ErrorMsg>{formErrors.lastName}</ErrorMsg>
+        </Div>
 
-          <div className="signup-form-input">
-            <SignUpButton type="submit">Créer un compte</SignUpButton>
-          </div>
-        </SignUpForm>
+        <Div>
+          <label htmlFor="firstName">Prénom</label>
+          <Input type="text" id="firstName" name="firstName" onChange={handleChange} required />
+          <ErrorMsg>{formErrors.firstName}</ErrorMsg>
+        </Div>
+
+        <Div>
+          <label htmlFor="email">Email</label>
+          <Input type="email" id="email" name="email" onChange={handleChange} required />
+          <ErrorMsg>{formErrors.email}</ErrorMsg>
+        </Div>
+
+        <Div>
+          <label htmlFor="password">Mot de passe</label>
+          <Input type="password" id="password" name="password" onChange={handleChange} required />
+          <ErrorMsg>{formErrors.password}</ErrorMsg>
+        </Div>
+
         {Object.keys(formErrors).length === 0 && isSubmit ? (
           <Link to="/" style={{ textDecoration: "none" }}>
-            <RedirectToLogin type="button">Retour à la page de connexion</RedirectToLogin>
+            <Button type="button" greyButton>
+              Retour à la page de connexion
+            </Button>
           </Link>
-        ) : null}
-      </div>
+        ) : (
+          <Div>
+            <Button type="submit">Créer un compte</Button>
+          </Div>
+        )}
+      </Form>
     </div>
   );
 }

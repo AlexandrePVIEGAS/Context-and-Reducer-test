@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LogoImg, LoginForm, LoginDiv, LoginInput, ErrorMsg, LoginButton, SignUpButton } from "./style";
-import Logo from "../../assets/icon-left-font.svg";
+import { LogoImg, Form, Input, ErrorMsg } from "./style";
+import { Button } from "../../utils/styles/button";
+import Logo from "../../assets/icon-left-font.png";
 
 function Login() {
   let navigate = useNavigate();
@@ -26,7 +27,7 @@ function Login() {
         .then((response) => response.json())
         .then((data) => {
           if (!data.email && !data.password) {
-            navigate("/profil");
+            navigate("/profile/" + data.userId);
           } else {
             setFormErrors(data);
           }
@@ -51,28 +52,30 @@ function Login() {
   };
 
   return (
-    <div>
-      <div className="container">
-        <LogoImg src={Logo} alt="logo" />
-        <LoginForm onSubmit={handleSubmit}>
-          <LoginDiv className="login-form-input">
-            <label htmlFor="email">Email</label>
-            <LoginInput type="email" id="email" name="email" onChange={handleChange} required />
-            <ErrorMsg>{formErrors.email}</ErrorMsg>
-          </LoginDiv>
-          <LoginDiv className="login-form-input">
-            <label htmlFor="password">Mot de passe</label>
-            <LoginInput type="password" id="password" name="password" onChange={handleChange} required />
-            <ErrorMsg>{formErrors.password}</ErrorMsg>
-          </LoginDiv>
-          <div className="login-form-input">
-            <LoginButton type="submit">Se connecter</LoginButton>
-          </div>
-        </LoginForm>
-      </div>
-      <Link to="/signup" style={{ textDecoration: "none" }}>
-        <SignUpButton type="button">Créer un compte</SignUpButton>
-      </Link>
+    <div className="container">
+      <LogoImg src={Logo} alt="logo" />
+
+      <Form onSubmit={handleSubmit}>
+        <div className="login-form-input">
+          <label htmlFor="email">Email</label>
+          <Input type="email" id="email" name="email" onChange={handleChange} required />
+          <ErrorMsg>{formErrors.email}</ErrorMsg>
+        </div>
+
+        <div className="login-form-input">
+          <label htmlFor="password">Mot de passe</label>
+          <Input type="password" id="password" name="password" onChange={handleChange} required />
+          <ErrorMsg>{formErrors.password}</ErrorMsg>
+        </div>
+
+        <div className="login-form-input">
+          <Button type="submit">Se connecter</Button>
+        </div>
+        
+        <Link to="/signup" style={{ textDecoration: "none" }}>
+          <Button type="button" greyButton>Créer un compte</Button>
+        </Link>
+      </Form>
     </div>
   );
 }

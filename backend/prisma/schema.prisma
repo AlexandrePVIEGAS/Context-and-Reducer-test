@@ -50,17 +50,17 @@ model roles {
 }
 
 model users {
-  id          Int           @id @default(autoincrement())
-  lastName    String        @db.VarChar(40)
-  firstName   String        @db.VarChar(40)
-  email       String        @unique(map: "email") @db.VarChar(255)
-  password    String        @db.VarChar(255)
-  imageUrl    String?       @db.VarChar(255)
-  biography   String?       @db.VarChar(125)
-  comments    comments[]
-  likes       likes[]
-  posts       posts[]
-  users_roles users_roles[]
+  id             Int           @id @default(autoincrement())
+  lastName       String        @db.VarChar(40)
+  firstName      String        @db.VarChar(40)
+  email          String        @unique(map: "email") @db.VarChar(255)
+  password       String        @db.VarChar(255)
+  profilePicture String?       @db.VarChar(255)
+  biography      String?       @db.VarChar(125)
+  comments       comments[]
+  likes          likes[]
+  posts          posts[]
+  users_roles    users_roles[]
 }
 
 model users_roles {

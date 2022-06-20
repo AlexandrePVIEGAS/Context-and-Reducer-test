@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import color from "../../utils/style/colors";
+import color from "../../utils/styles/colors";
 
-export const LogoImg = styled.img`
+export const Img = styled.img`
   display: block;
   width: 100%;
   max-width: 500px;
-  margin: auto;
+  margin: 150px auto;
   position: relative;
   right: 15px;
 `;
@@ -16,65 +16,31 @@ export const SuccessOrError = styled.div`
   max-width: 300px;
   margin: 0 auto;
   margin-bottom: 40px;
-  padding: 10px;
+  padding: 5px;
   font-size: 20px;
   color: white;
-  ${(props) => props.success && `background-color: ${color.succesColor} ;`};
-  ${(props) => props.error && `background-color: ${color.primary} ;`};
+  ${({ success }) => success && `background-color: ${color.succesColor} ;`};
+  ${({ error }) => error && `background-color: ${color.primary} ;`};
 `;
-export const SignUpForm = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 25px;
 `;
-export const SignUpDiv = styled.div`
+export const Div = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
   max-width: 300px;
 `;
-export const SignUpInput = styled.input`
+export const Input = styled.input`
   height: 30px;
   font-size: 15px;
 `;
 export const ErrorMsg = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: white;
   font-size: 20px;
+  text-align: center;
   background-color: red;
-`;
-export const SignUpButton = styled.button`
-  cursor: pointer;
-  margin-bottom: 20px;
-  padding: 10px 20px;
-  font-size: 20px;
-  color: white;
-  background-color: ${color.primary};
-  border: none;
-  border-radius: 5px;
-  transition: 0.2s ease-in-out;
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
-export const RedirectToLogin = styled.button`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  width: 90%;
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 10px;
-  font-size: 20px;
-  color: white;
-  background-color: ${color.tertiary};
-  border: none;
-  border-radius: 5px;
-  transition: 0.2s ease-in-out;
-  &:hover {
-    transform: scale(1.05);
-  }
 `;

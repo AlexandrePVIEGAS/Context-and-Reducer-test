@@ -22,7 +22,7 @@ const signUp = async (req, res, next) => {
           password: req.body.password,
         },
       });
-      const userRole = await prisma.users_roles.create({
+      await prisma.users_roles.create({
         data: {
           user_id: user.id,
           role_id: 2,
@@ -49,7 +49,7 @@ const login = async (req, res, next) => {
         res.status(404).json({ password: "Mot de passe incorrect !" });
       } else {
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
-        res.cookie("Token", token);
+        res.cookie("Token", token, { httpOnly: true });
         res.status(200).json({
           userId: user.id,
           token: token,
@@ -65,7 +65,6 @@ const login = async (req, res, next) => {
 const logout = (req, res, next) => {
   res.clearCookie("Token");
   res.status(200).json({ message: "Déconnexion réussie !" });
-  res.redirect("/");
 };
 
 module.exports = {
