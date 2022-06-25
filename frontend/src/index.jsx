@@ -1,26 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
-import Login from "./pages/Login";
-import Signup from "./pages/SignUp";
-import Profile from "./pages/Profile";
+import "./index.css";
 
-const GlobalStyle = createGlobalStyle`
-    div {
-        font-family: "Lato", sans-serif;
-    }
-`;
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import EditProfile from "./pages/EditProfile";
+import Feed from "./pages/Feed";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
-      <GlobalStyle />
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/edit_profile/:id" element={<EditProfile />} />
       </Routes>
     </Router>
   </React.StrictMode>

@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 import Logo from "../../assets/icon-left-font.png";
-import { Img, SuccessOrError, Form, Div, Input, ErrorMsg } from "./style";
 import { Button } from "../../utils/styles/button";
+import { Img } from "../../utils/styles/logo";
+import { ErrorMsg } from "../../utils/styles/errorMsg";
+
+import { validate, fetchData } from "./function";
+import { SuccessOrError, Form, Div, Input } from "./style";
 
 function SignUp() {
   const [userSignup, setUserSignup] = useState({
@@ -15,50 +20,6 @@ function SignUp() {
   const [isSubmit, setIsSubmit] = useState(false);
   const [userExist, setUserExist] = useState(false);
 
-  const validate = (values) => {
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/;
-    const errors = {};
-    if (!regexEmail.test(values.email)) {
-      errors.email = "L'email n'est pas valide !";
-    }
-    if (!regexPassword.test(values.password)) {
-      errors.password = "Le mot de passe doit faire au moins 8 caractères !";
-    }
-    return errors;
-  };
-
-  async function fetchData() {
-    if (Object.keys(formErrors).length === 0) {
-      try {
-        const requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userSignup),
-        };
-        await fetch("http://localhost:3000/api/auth/signup", requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            if (!data.error) {
-              setIsSubmit(true);
-              setUserExist(false);
-            } else {
-              setIsSubmit(false);
-              setUserExist(true);
-            }
-            console.log(data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserSignup({ ...userSignup, [name]: value });
@@ -67,7 +28,7 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(userSignup));
-    fetchData();
+    fetchData(formErrors, userSignup, setIsSubmit, setUserExist);
   };
 
   return (

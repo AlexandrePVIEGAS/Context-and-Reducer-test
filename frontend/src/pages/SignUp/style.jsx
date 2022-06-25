@@ -1,14 +1,6 @@
 import styled from "styled-components";
 import color from "../../utils/styles/colors";
 
-export const Img = styled.img`
-  display: block;
-  width: 100%;
-  max-width: 500px;
-  margin: 150px auto;
-  position: relative;
-  right: 15px;
-`;
 export const SuccessOrError = styled.div`
   display: flex;
   justify-content: center;
@@ -37,10 +29,4 @@ export const Div = styled.div`
 export const Input = styled.input`
   height: 30px;
   font-size: 15px;
-`;
-export const ErrorMsg = styled.p`
-  color: white;
-  font-size: 20px;
-  text-align: center;
-  background-color: red;
 `;

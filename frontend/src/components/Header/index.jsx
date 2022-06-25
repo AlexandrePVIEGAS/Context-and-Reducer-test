@@ -1,49 +1,51 @@
-// import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightFromBracket, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-const Nav = styled.nav`
-  display: flex;
-  justify-content: flex-end;
-`;
+import Logo from "../../assets/icon-left-font-monochrome-white.png";
 
-const EditProfil = () => {
-  const { id } = useParams();
+import { disconnect, fetchData } from "./function";
+import { Nav, LogoImg, Container, ContainerLink, Button, Span, Img } from "./style";
 
-  async function disconnect() {
-    try {
-      const requestOptions = {
-        method: "DELETE",
-        credentials: "include",
-      };
-      await fetch("http://localhost:3000/api/auth/logout", requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          window.location.reload();
-          console.log(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }
+const Header = () => {
+  const id = JSON.parse(localStorage.getItem("userId"));
+
+  const [imgSrc, setImgSrc] = useState("");
+
+  useEffect(() => {
+    fetchData(id, setImgSrc);
+  }, [id]);
 
   const handleDisconnect = () => {
+    localStorage.clear();
     disconnect();
-  }
+  };
 
   return (
     <Nav>
-      <Link to={"/profile/" + id}>
-        <button>Editer le profil</button>
-      </Link>
-      <Link to="/">
-        <button type="button" onClick={handleDisconnect}>Se déconnecter</button>
-      </Link>
+      <Container>
+        <Link to="/feed">
+          <LogoImg src={Logo} alt="logo" />
+        </Link>
+        <div style={{ display: "flex" }}>
+          <Img src={`http://localhost:3000${imgSrc}`} alt="avatar" />
+          <ContainerLink>
+            <Link to={"/edit_profile/" + id} style={{ cursor: "default" }}>
+              <Button>
+                <FontAwesomeIcon icon={faPenToSquare} size="2x" />
+                <Span>Editer le profil</Span>
+              </Button>
+            </Link>
+            <Button onClick={handleDisconnect}>
+              <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
+              <Span>Se déconnecter</Span>
+            </Button>
+          </ContainerLink>
+        </div>
+      </Container>
     </Nav>
   );
 };
 
-export default EditProfil;
+export default Header;

@@ -10,10 +10,12 @@ const signUp = async (req, res, next) => {
     const user = await prisma.users.findUnique({
       where: { email: req.body.email },
     });
+    // Check if the email is already used
     if (user !== null) {
       res.status(409).json({ error: "Utilisateur trouvé avec cet email !" });
     } else {
       req.body.password = await bcrypt.hash(req.body.password, 10);
+      // Create a user
       const user = await prisma.users.create({
         data: {
           lastName: req.body.lastName,
@@ -41,19 +43,18 @@ const login = async (req, res, next) => {
     const user = await prisma.users.findUnique({
       where: { email: req.body.email },
     });
+    // Check if the email exist
     if (user === null) {
       res.status(404).json({ email: "E-mail inconnu !" });
     } else {
       const valid = await bcrypt.compare(req.body.password, user.password);
+      // Check if the password is valid
       if (!valid) {
         res.status(404).json({ password: "Mot de passe incorrect !" });
       } else {
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
         res.cookie("Token", token, { httpOnly: true });
-        res.status(200).json({
-          userId: user.id,
-          token: token,
-        });
+        res.status(200).json({ userId: user.id, message: "Connexion réussie !" });
       }
     }
   } catch (error) {

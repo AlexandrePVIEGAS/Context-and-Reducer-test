@@ -1,18 +1,24 @@
+const { PrismaClient } = require("@prisma/client");
 const jwt = require("jsonwebtoken");
 
-module.exports = (req, res, next) => {
+const prisma = new PrismaClient();
+
+module.exports = async (req, res, next) => {
   try {
     const token = req.cookies.Token;
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken.userId;
-    req.auth = { userId };
-    if (req.body.userId && req.body.userId !== userId) {
-      throw "User ID invalide !";
+    const user = await prisma.users.findUnique({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
+    if (userId !== user.id) {
+      res.status(403).json({ error: "Utilisateur non autorisé" });
     } else {
-      // userIdFromTheToken = userId; tester avec req.auth
       next();
     }
   } catch (error) {
-    res.status(401).json({ error });
+    res.status(500).json({ error });
   }
 };

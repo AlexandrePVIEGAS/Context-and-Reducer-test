@@ -8,37 +8,42 @@ datasource db {
 }
 
 model comments {
-  id       Int     @id @default(autoincrement())
-  message  String  @db.VarChar(255)
-  imageUrl String? @db.VarChar(255)
-  user_id  Int
-  post_id  Int
-  posts    posts   @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "comments_ibfk2")
-  users    users   @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "comments_ibfk1")
+  id        Int       @id @default(autoincrement())
+  message   String    @db.VarChar(255)
+  imageUrl  String?   @db.VarChar(255)
+  user_id   Int
+  post_id   Int
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+  updatedAt DateTime? @db.DateTime(0)
+  posts     posts     @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "comments_ibfk2")
+  users     users     @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "comments_ibfk1")
 
   @@index([user_id], map: "comments_ibfk1")
   @@index([post_id], map: "comments_ibfk2")
 }
 
 model likes {
-  id      Int   @id @default(autoincrement())
-  user_id Int
-  post_id Int
-  posts   posts @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "likes_ibfk2")
-  users   users @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "likes_ibfk1")
+  id        Int       @id @default(autoincrement())
+  user_id   Int
+  post_id   Int
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+  posts     posts     @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "likes_ibfk2")
+  users     users     @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "likes_ibfk1")
 
   @@index([user_id], map: "likes_ibfk1")
   @@index([post_id], map: "likes_ibfk2")
 }
 
 model posts {
-  id       Int        @id @default(autoincrement())
-  message  String     @db.VarChar(255)
-  imageUrl String?    @db.VarChar(255)
-  user_id  Int
-  users    users      @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "posts_ibfk1")
-  comments comments[]
-  likes    likes[]
+  id        Int        @id @default(autoincrement())
+  message   String     @db.VarChar(255)
+  imageUrl  String?    @db.VarChar(255)
+  user_id   Int
+  createdAt DateTime?  @default(now()) @db.DateTime(0)
+  updatedAt DateTime?  @db.DateTime(0)
+  users     users      @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "posts_ibfk1")
+  comments  comments[]
+  likes     likes[]
 
   @@index([user_id], map: "posts_ibfk1")
 }
@@ -50,17 +55,19 @@ model roles {
 }
 
 model users {
-  id             Int           @id @default(autoincrement())
-  lastName       String        @db.VarChar(40)
-  firstName      String        @db.VarChar(40)
-  email          String        @unique(map: "email") @db.VarChar(255)
-  password       String        @db.VarChar(255)
-  profilePicture String?       @db.VarChar(255)
-  biography      String?       @db.VarChar(125)
-  comments       comments[]
-  likes          likes[]
-  posts          posts[]
-  users_roles    users_roles[]
+  id          Int           @id @default(autoincrement())
+  lastName    String        @db.VarChar(40)
+  firstName   String        @db.VarChar(40)
+  email       String        @unique(map: "email") @db.VarChar(255)
+  password    String        @db.VarChar(255)
+  avatarUrl   String?       @db.VarChar(255)
+  biography   String?       @db.VarChar(125)
+  createdAt   DateTime?     @default(now()) @db.DateTime(0)
+  updatedAt   DateTime?     @db.DateTime(0)
+  comments    comments[]
+  likes       likes[]
+  posts       posts[]
+  users_roles users_roles[]
 }
 
 model users_roles {
