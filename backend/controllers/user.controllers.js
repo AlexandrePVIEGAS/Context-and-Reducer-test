@@ -65,11 +65,12 @@ const deleteUser = async (req, res, next) => {
     const user = await prisma.users.findUnique({
       where: { id: Number(req.params.id) },
     });
-    // Check if the user have an avatar, if yes, delete it from the server then delete the user
+    // Check if the user have an avatar, if yes, delete it from the server
     if (user.avatarUrl !== null) {
       const filename = user.avatarUrl.split("/images/")[1];
       fs.unlinkSync(`images/${filename}`);
     }
+    // Delete the user
     await prisma.users.delete({
       where: { id: user.id },
     });

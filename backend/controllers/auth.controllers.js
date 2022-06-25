@@ -10,7 +10,7 @@ const signUp = async (req, res, next) => {
     const user = await prisma.users.findUnique({
       where: { email: req.body.email },
     });
-    // Check if the email is already used
+    // Check if the email is already used, if yes, return an error
     if (user !== null) {
       res.status(409).json({ error: "Utilisateur trouvé avec cet email !" });
     } else {
@@ -43,12 +43,12 @@ const login = async (req, res, next) => {
     const user = await prisma.users.findUnique({
       where: { email: req.body.email },
     });
-    // Check if the email exist
+    // Check if the email exist, if yes, return an error
     if (user === null) {
       res.status(404).json({ email: "E-mail inconnu !" });
     } else {
       const valid = await bcrypt.compare(req.body.password, user.password);
-      // Check if the password is valid
+      // Check if the password is valid, if not, return an error
       if (!valid) {
         res.status(404).json({ password: "Mot de passe incorrect !" });
       } else {
