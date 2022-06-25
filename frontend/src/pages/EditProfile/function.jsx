@@ -29,7 +29,9 @@ export async function updateImg(img, id, setImgSrc) {
       body: formData,
     });
     const data = await resultApi.json();
-    setImgSrc(data.user.avatarUrl);
+    if (data.user.avatarUrl !== null) {
+      setImgSrc(data.user.avatarUrl);
+    }
   } catch (error) {
     console.log(error);
   }

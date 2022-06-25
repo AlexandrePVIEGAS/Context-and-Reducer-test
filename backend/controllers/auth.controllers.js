@@ -27,7 +27,6 @@ const signUp = async (req, res, next) => {
       await prisma.users_roles.create({
         data: {
           user_id: user.id,
-          role_id: 2,
         },
       });
       res.status(200).json({ message: "Utilisateur crée !" });

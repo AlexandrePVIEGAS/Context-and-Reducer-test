@@ -13,8 +13,8 @@ model comments {
   imageUrl  String?   @db.VarChar(255)
   user_id   Int
   post_id   Int
-  createdAt DateTime? @default(now()) @db.DateTime(0)
-  updatedAt DateTime? @db.DateTime(0)
+  createdAt DateTime  @db.DateTime(0) @default(now())
+  updatedAt DateTime? @db.DateTime(0) @updatedAt
   posts     posts     @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "comments_ibfk2")
   users     users     @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "comments_ibfk1")
 
@@ -23,12 +23,12 @@ model comments {
 }
 
 model likes {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   user_id   Int
   post_id   Int
-  createdAt DateTime? @default(now()) @db.DateTime(0)
-  posts     posts     @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "likes_ibfk2")
-  users     users     @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "likes_ibfk1")
+  createdAt DateTime @db.DateTime(0) @default(now())
+  posts     posts    @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "likes_ibfk2")
+  users     users    @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "likes_ibfk1")
 
   @@index([user_id], map: "likes_ibfk1")
   @@index([post_id], map: "likes_ibfk2")
@@ -39,8 +39,8 @@ model posts {
   message   String     @db.VarChar(255)
   imageUrl  String?    @db.VarChar(255)
   user_id   Int
-  createdAt DateTime?  @default(now()) @db.DateTime(0)
-  updatedAt DateTime?  @db.DateTime(0)
+  createdAt DateTime   @db.DateTime(0) @default(now())
+  updatedAt DateTime?  @db.DateTime(0) @updatedAt
   users     users      @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "posts_ibfk1")
   comments  comments[]
   likes     likes[]
@@ -62,8 +62,8 @@ model users {
   password    String        @db.VarChar(255)
   avatarUrl   String?       @db.VarChar(255)
   biography   String?       @db.VarChar(125)
-  createdAt   DateTime?     @default(now()) @db.DateTime(0)
-  updatedAt   DateTime?     @db.DateTime(0)
+  createdAt   DateTime      @db.DateTime(0) @default(now())
+  updatedAt   DateTime?     @db.DateTime(0) @updatedAt
   comments    comments[]
   likes       likes[]
   posts       posts[]
@@ -72,7 +72,7 @@ model users {
 
 model users_roles {
   user_id Int
-  role_id Int
+  role_id Int   @default(2)
   roles   roles @relation(fields: [role_id], references: [id], onDelete: Cascade, map: "users_roles_ibfk2")
   users   users @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "users_roles_ibfk1")
 

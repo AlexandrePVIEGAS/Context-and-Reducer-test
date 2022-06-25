@@ -20,7 +20,7 @@ CREATE TABLE `likes` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
-  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP
+  `createdAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -35,8 +35,8 @@ CREATE TABLE `comments` (
   `imageUrl` varchar(255) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
-  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` datetime ON UPDATE CURRENT_TIMESTAMP
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -50,8 +50,8 @@ CREATE TABLE `posts` (
   `message` varchar(255) NOT NULL,
   `imageUrl` varchar(255) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
-  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` datetime ON UPDATE CURRENT_TIMESTAMP
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -90,8 +90,8 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `avatarUrl` varchar(255) DEFAULT NULL,
   `biography` varchar(125) DEFAULT NULL,
-  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` datetime ON UPDATE CURRENT_TIMESTAMP
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
