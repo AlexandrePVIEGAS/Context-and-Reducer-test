@@ -65,7 +65,11 @@ function Feed() {
             return (
               <Container key={post.id}>
                 <Profile>
-                  <Avatar src={`http://localhost:3000${post.users.avatarUrl}`} alt="avatar" />
+                  {post.users.avatarUrl ? (
+                    <Avatar src={`http://localhost:3000${post.users.avatarUrl}`} alt="avatar" />
+                  ) : (
+                    <Avatar src={`http://localhost:3000/images/default.png`} alt="avatar" />
+                  )}
                   <Post>
                     <span style={{ marginBottom: "5px" }}>
                       {post.users.lastName} {post.users.firstName}

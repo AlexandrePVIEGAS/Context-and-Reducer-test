@@ -132,7 +132,6 @@ const likePost = async (req, res, next) => {
         where: {
           user_id: Number(req.body.user_id),
           post_id: Number(req.body.post_id),
-          createdAt: new Date(),
         },
       });
       // Return the post with the like deleted
