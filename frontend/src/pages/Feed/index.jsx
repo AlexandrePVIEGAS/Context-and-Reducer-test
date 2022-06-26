@@ -2,8 +2,14 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../../components/Header";
 
-import { getAllPosts, createPost, likePost } from "./function";
+import { getAllPosts, createPost, likePost, deletePost } from "./function";
 
+const InputPost = styled.input`
+  display: flex;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 100px;
+`;
 const Container = styled.div`
   max-width: 1024px;
   margin: auto;
@@ -26,11 +32,11 @@ const Post = styled.div`
 `;
 
 function Feed() {
-  const id = JSON.parse(localStorage.getItem("userId"));
+  const userId = JSON.parse(localStorage.getItem("userId"));
 
   const [dataPost, setDataPost] = useState({
     message: "",
-    user_id: id,
+    user_id: userId,
   });
   const [dataPosts, setDataPosts] = useState([]);
   const [displayPosts, setDisplayPosts] = useState(false);
@@ -46,25 +52,29 @@ function Feed() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createPost(dataPost, setDataPosts, dataPosts);
+    createPost(dataPost, setDataPosts, setDisplayPosts, setDataPost);
   };
 
-  const handleLike = (e) => {
-    likePost(dataPosts, id, setDataPosts);
+  const handleLike = (idPost) => {
+    likePost(dataPosts, userId, setDataPosts, setDisplayPosts, idPost);
+  };
+
+  const handleDelete = (idPost) => {
+    deletePost(dataPosts, setDataPosts, setDisplayPosts, idPost);
   };
 
   return (
     <div>
       <Header />
       <form onSubmit={handleSubmit}>
-        <input type="text" id="message" name="message" onChange={handleChange}></input>
+        <InputPost type="text" id="message" name="message" onChange={handleChange} />
         <button type="submit">Envoyer</button>
       </form>
       {displayPosts
         ? dataPosts.map((post) => {
             return (
               <Container key={post.id}>
-                <Profile>
+                <Profile key={post.users.id}>
                   {post.users.avatarUrl ? (
                     <Avatar src={`http://localhost:3000${post.users.avatarUrl}`} alt="avatar" />
                   ) : (
@@ -76,12 +86,13 @@ function Feed() {
                     </span>
                     <span>{post.message}</span>
                   </Post>
+                  <span>{post.updatedAt}</span>
                 </Profile>
-                <button id="like" name="like" onClick={handleLike}>
-                  J'AIME
-                </button>
-                <span>{post.likes.length}</span>
-
+                <div key={post.likes.id}>
+                  <button onClick={() => handleLike(post.id)}>J'AIME</button>
+                  <span>{post.likes.length}</span>
+                </div>
+                <button onClick={() => handleDelete(post.id)}>Supprimer</button>
                 {post.comments.map((comment) => {
                   return (
                     <Container key={comment.id}>

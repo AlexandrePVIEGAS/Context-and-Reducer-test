@@ -11,13 +11,13 @@ import Feed from "./pages/Feed";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/feed" element={<Feed />} />
-        <Route path="/edit_profile/:id" element={<EditProfile />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/edit_profile/:id" element={<EditProfile />} />
+        </Routes>
+      </Router>
   </React.StrictMode>
 );

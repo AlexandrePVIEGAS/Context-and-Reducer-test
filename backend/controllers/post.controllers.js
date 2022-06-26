@@ -11,6 +11,9 @@ const getAllPosts = async (req, res, next) => {
         comments: { include: { users: true } },
         likes: { include: { users: true } },
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     res.status(200).json({ posts, message: "Tous les posts ont été récupérés !" });
   } catch (error) {
@@ -54,7 +57,7 @@ const createPost = async (req, res, next) => {
           likes: { include: { users: true } },
         },
       });
-      res.status(200).json({ post, message: "Le post " + post.id + " a été créé !" });
+      res.status(200).json({ message: "Le post " + post.id + " a été créé !" });
     } else {
       // Create the post without image
       const post = await prisma.posts.create({
@@ -68,7 +71,7 @@ const createPost = async (req, res, next) => {
           likes: { include: { users: true } },
         },
       });
-      res.status(200).json({ post, message: "Le post " + post.id + " a été créé !" });
+      res.status(200).json({ message: "Le post " + post.id + " a été créé !" });
     }
   } catch (error) {
     res.status(500).json({ error });
@@ -117,15 +120,7 @@ const likePost = async (req, res, next) => {
           post_id: Number(req.body.post_id),
         },
       });
-      // Return the post with the new like
-      const posts = await prisma.posts.findMany({
-        include: {
-          users: true,
-          comments: { include: { users: true } },
-          likes: { include: { users: true } },
-        },
-      });
-      res.status(200).json({ posts, message: "Le post a été liké !" });
+      res.status(200).json({ message: "Le post a été liké !" });
     } else {
       // Delete the like
       await prisma.likes.deleteMany({
@@ -134,15 +129,7 @@ const likePost = async (req, res, next) => {
           post_id: Number(req.body.post_id),
         },
       });
-      // Return the post with the like deleted
-      const posts = await prisma.posts.findMany({
-        include: {
-          users: true,
-          comments: { include: { users: true } },
-          likes: { include: { users: true } },
-        },
-      });
-      res.status(200).json({ posts, message: "Le like a été supprimé !" });
+      res.status(200).json({ message: "Le like a été supprimé !" });
     }
   } catch (error) {
     res.status(500).json({ error });
