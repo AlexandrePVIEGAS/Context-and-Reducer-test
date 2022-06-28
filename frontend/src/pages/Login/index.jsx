@@ -33,13 +33,13 @@ function Login() {
       <Form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" onChange={handleChange} required />
+          <input type="email" name="email" onChange={handleChange} required />
           <p>{formErrors.email}</p>
         </div>
 
         <div>
           <label htmlFor="password">Mot de passe</label>
-          <input type="password" id="password" name="password" onChange={handleChange} required />
+          <input type="password" name="password" onChange={handleChange} required />
           <p>{formErrors.password}</p>
         </div>
 

@@ -19,5 +19,10 @@ export const Button = styled.button`
 
   ${({ greyButton }) => greyButton && `background-color: ${color.tertiary};`}
   ${({ smallButton }) =>
-    smallButton && `width: auto; margin: 0; padding: 8px 20px; font-size: 12px; font-weight: bold;`}
+    smallButton &&
+    `width: auto; 
+    margin: 0; 
+    padding: 8px 20px; 
+    font-size: 12px; 
+    font-weight: bold;`}
 `;

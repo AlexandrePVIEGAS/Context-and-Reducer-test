@@ -48,7 +48,7 @@ export const Button = styled.button`
   cursor: pointer;
   font-size: 15px;
   color: ${color.primary};
-  background-color: ${color.tertiary};
+  background: none;
   border: none;
 
   &:hover {
