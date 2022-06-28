@@ -2,12 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Logo from "../../assets/icon-left-font.png";
+import { Img, Form } from "../../utils/styles/Form";
 import { Button } from "../../utils/styles/button";
-import { Img } from "../../utils/styles/logo";
-import { ErrorMsg } from "../../utils/styles/errorMsg";
 
 import { fetchData } from "./function";
-import { Form, Input } from "./style";
 
 function Login() {
   let navigate = useNavigate();
@@ -25,7 +23,7 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchData(userLogin, setFormErrors, navigate);
+    fetchData(userLogin, navigate, setFormErrors);
   };
 
   return (
@@ -33,27 +31,29 @@ function Login() {
       <Img src={Logo} alt="logo" />
 
       <Form onSubmit={handleSubmit}>
-        <div className="login-form-input">
+        <div>
           <label htmlFor="email">Email</label>
-          <Input type="email" id="email" name="email" onChange={handleChange} required />
-          <ErrorMsg>{formErrors.email}</ErrorMsg>
+          <input type="email" id="email" name="email" onChange={handleChange} required />
+          <p>{formErrors.email}</p>
         </div>
 
-        <div className="login-form-input">
+        <div>
           <label htmlFor="password">Mot de passe</label>
-          <Input type="password" id="password" name="password" onChange={handleChange} required />
-          <ErrorMsg>{formErrors.password}</ErrorMsg>
+          <input type="password" id="password" name="password" onChange={handleChange} required />
+          <p>{formErrors.password}</p>
         </div>
 
-        <div className="login-form-input">
+        <div>
           <Button type="submit">Se connecter</Button>
         </div>
 
-        <Link to="/signup" style={{ textDecoration: "none" }}>
-          <Button type="button" greyButton>
-            Créer un compte
-          </Button>
-        </Link>
+        <div>
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            <Button type="button" greyButton>
+              Créer un compte
+            </Button>
+          </Link>
+        </div>
       </Form>
     </div>
   );

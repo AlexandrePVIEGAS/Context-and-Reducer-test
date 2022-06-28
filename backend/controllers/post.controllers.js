@@ -11,9 +11,7 @@ const getAllPosts = async (req, res, next) => {
         comments: { include: { users: true } },
         likes: { include: { users: true } },
       },
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy: { createdAt: "desc" },
     });
     res.status(200).json({ posts, message: "Tous les posts ont été récupérés !" });
   } catch (error) {
@@ -93,9 +91,7 @@ const deletePost = async (req, res, next) => {
     }
     // Delete the post
     await prisma.posts.delete({
-      where: {
-        id: Number(req.params.id),
-      },
+      where: { id: Number(req.params.id) },
     });
     res.status(200).json({ message: "Le post " + post.id + " a été surprimé !" });
   } catch (error) {

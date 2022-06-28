@@ -12,8 +12,12 @@ export const Button = styled.button`
   border: none;
   border-radius: 5px;
   transition: 0.2s ease-in-out;
+
   &:hover {
     transform: scale(1.05);
   }
+
   ${({ greyButton }) => greyButton && `background-color: ${color.tertiary};`}
+  ${({ smallButton }) =>
+    smallButton && `width: auto; margin: 0; padding: 8px 20px; font-size: 12px; font-weight: bold;`}
 `;

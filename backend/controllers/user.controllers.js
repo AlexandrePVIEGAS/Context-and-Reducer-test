@@ -50,7 +50,6 @@ const updateUser = async (req, res, next) => {
       data: {
         lastName: req.body.lastName,
         firstName: req.body.firstName,
-        biography: req.body.biography,
       },
     });
     res.status(200).json({ user, message: "L'Utilisateur " + user.id + " a été modifié !" });

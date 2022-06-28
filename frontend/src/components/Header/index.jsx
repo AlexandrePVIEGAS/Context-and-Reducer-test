@@ -6,16 +6,16 @@ import { faRightFromBracket, faPenToSquare } from "@fortawesome/free-solid-svg-i
 import Logo from "../../assets/icon-left-font-monochrome-white.png";
 
 import { disconnect, fetchData } from "./function";
-import { Nav, LogoImg, Container, ContainerLink, Button, Span, Img } from "./style";
+import { Nav, LogoImg, Container, Div, AvatarImg, ContainerLink, Button, Span } from "./style";
 
 const Header = () => {
-  const id = JSON.parse(localStorage.getItem("userId"));
+  const userId = JSON.parse(localStorage.getItem("userId"));
 
   const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
-    fetchData(id, setImgSrc);
-  }, [id]);
+    fetchData(userId, setImgSrc);
+  }, [userId]);
 
   const handleDisconnect = () => {
     localStorage.clear();
@@ -28,21 +28,24 @@ const Header = () => {
         <Link to="/feed">
           <LogoImg src={Logo} alt="logo" />
         </Link>
-        <div style={{ display: "flex" }}>
-          <Img src={`http://localhost:3000${imgSrc}`} alt="avatar" />
+
+        <Div>
+          <AvatarImg src={`http://localhost:3000${imgSrc}`} alt="avatar" />
+
           <ContainerLink>
-            <Link to={"/edit_profile/" + id} style={{ cursor: "default" }}>
+            <Link to={"/edit_profile/" + userId} style={{ cursor: "default" }}>
               <Button>
                 <FontAwesomeIcon icon={faPenToSquare} size="2x" />
                 <Span>Editer le profil</Span>
               </Button>
             </Link>
+            
             <Button onClick={handleDisconnect}>
               <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
               <Span>Se déconnecter</Span>
             </Button>
           </ContainerLink>
-        </div>
+        </Div>
       </Container>
     </Nav>
   );

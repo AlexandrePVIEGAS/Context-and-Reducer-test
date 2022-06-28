@@ -61,7 +61,6 @@ model users {
   email       String        @unique(map: "email") @db.VarChar(255)
   password    String        @db.VarChar(255)
   avatarUrl   String?       @db.VarChar(255)
-  biography   String?       @db.VarChar(125)
   createdAt   DateTime      @db.DateTime(0) @default(now())
   updatedAt   DateTime?     @db.DateTime(0) @updatedAt
   comments    comments[]

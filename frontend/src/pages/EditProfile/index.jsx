@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import { Button } from "../../utils/styles/button";
 
-import { fetchData, updateImg, updateData, deleteData } from "./function";
+import { fetchData, updateAvatar, updateUser, deleteUser } from "./function";
 import { Container, Form, Img, Div, Input } from "./style";
 
 function EditProfile() {
@@ -14,14 +14,13 @@ function EditProfile() {
 
   const refLastName = useRef();
   const refFirstName = useRef();
-  const refBiography = useRef();
   const refEmail = useRef();
 
   const [img, setImg] = useState();
   const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
-    fetchData(id, refLastName, refFirstName, refBiography, refEmail, setImgSrc);
+    fetchData(id, refLastName, refFirstName, refEmail, setImgSrc);
   }, [id]);
 
   const handleImgChange = (e) => {
@@ -30,13 +29,13 @@ function EditProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateData(id, refLastName, refFirstName, refBiography);
-    updateImg(img, id, setImgSrc);
+    updateUser(id, refLastName, refFirstName);
+    updateAvatar(img, id, setImgSrc);
   };
 
   const handleDelete = () => {
-    if (window.confirm("Voulez-vous vraiment supprimer votre compte ?") === true) {
-      deleteData(id, navigate);
+    if (window.confirm("Voulez-vous vraiment supprimer votre compte ?")) {
+      deleteUser(id, navigate);
     } else {
       return;
     }
@@ -61,11 +60,6 @@ function EditProfile() {
         <Div>
           <label htmlFor="firstName">Prénom : </label>
           <Input type="text" id="firstName" name="firstName" ref={refFirstName} />
-        </Div>
-
-        <Div>
-          <label htmlFor="biography">Bio : </label>
-          <Input type="text" id="biography" name="biography" ref={refBiography} />
         </Div>
 
         <Div>

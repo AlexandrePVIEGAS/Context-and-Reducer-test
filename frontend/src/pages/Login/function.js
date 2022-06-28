@@ -1,4 +1,10 @@
-export async function fetchData(userLogin, setFormErrors, navigate) {
+/**
+ * Log in
+ * @param {Object} userLogin
+ * @param {Function} navigate
+ * @param {Function} setFormErrors
+ */
+async function fetchData(userLogin, navigate, setFormErrors) {
   try {
     const resultApi = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
@@ -19,3 +25,7 @@ export async function fetchData(userLogin, setFormErrors, navigate) {
     console.log(error);
   }
 }
+
+module.exports = {
+  fetchData,
+};

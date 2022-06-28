@@ -2,12 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../assets/icon-left-font.png";
+import { Img, Form } from "../../utils/styles/Form";
 import { Button } from "../../utils/styles/button";
-import { Img } from "../../utils/styles/logo";
-import { ErrorMsg } from "../../utils/styles/errorMsg";
 
 import { validate, fetchData } from "./function";
-import { SuccessOrError, Form, Div, Input } from "./style";
+import { Message } from "./style";
 
 function SignUp() {
   const [userSignup, setUserSignup] = useState({
@@ -28,7 +27,7 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(userSignup));
-    fetchData(formErrors, userSignup, setIsSubmit, setUserExist);
+    fetchData(userSignup, setIsSubmit, setUserExist);
   };
 
   return (
@@ -37,38 +36,36 @@ function SignUp() {
         <Img src={Logo} alt="logo" />
       </Link>
 
-      {Object.keys(formErrors).length === 0 && isSubmit ? (
-        <SuccessOrError success>Inscription réussie !</SuccessOrError>
-      ) : null}
+      {Object.keys(formErrors).length === 0 && isSubmit ? <Message success>Inscription réussie !</Message> : null}
 
       {Object.keys(formErrors).length === 0 && userExist ? (
-        <SuccessOrError error>Cet utilisateur existe déjà !</SuccessOrError>
+        <Message error>Cet utilisateur existe déjà !</Message>
       ) : null}
 
       <Form onSubmit={handleSubmit}>
-        <Div>
+        <div>
           <label htmlFor="lastName">Nom</label>
-          <Input type="text" id="lastName" name="lastName" onChange={handleChange} required />
-          <ErrorMsg>{formErrors.lastName}</ErrorMsg>
-        </Div>
+          <input type="text" id="lastName" name="lastName" onChange={handleChange} required />
+          <p>{formErrors.lastName}</p>
+        </div>
 
-        <Div>
+        <div>
           <label htmlFor="firstName">Prénom</label>
-          <Input type="text" id="firstName" name="firstName" onChange={handleChange} required />
-          <ErrorMsg>{formErrors.firstName}</ErrorMsg>
-        </Div>
+          <input type="text" id="firstName" name="firstName" onChange={handleChange} required />
+          <p>{formErrors.firstName}</p>
+        </div>
 
-        <Div>
+        <div>
           <label htmlFor="email">Email</label>
-          <Input type="email" id="email" name="email" onChange={handleChange} required />
-          <ErrorMsg>{formErrors.email}</ErrorMsg>
-        </Div>
+          <input type="email" id="email" name="email" onChange={handleChange} required />
+          <p>{formErrors.email}</p>
+        </div>
 
-        <Div>
+        <div>
           <label htmlFor="password">Mot de passe</label>
-          <Input type="password" id="password" name="password" onChange={handleChange} required />
-          <ErrorMsg>{formErrors.password}</ErrorMsg>
-        </Div>
+          <input type="password" id="password" name="password" onChange={handleChange} required />
+          <p>{formErrors.password}</p>
+        </div>
 
         {Object.keys(formErrors).length === 0 && isSubmit ? (
           <Link to="/" style={{ textDecoration: "none" }}>
@@ -77,9 +74,9 @@ function SignUp() {
             </Button>
           </Link>
         ) : (
-          <Div>
+          <div>
             <Button type="submit">Créer un compte</Button>
-          </Div>
+          </div>
         )}
       </Form>
     </div>

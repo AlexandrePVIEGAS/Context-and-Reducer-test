@@ -11,8 +11,12 @@ export const Form = styled.form`
   width: 90%;
   max-width: 500px;
   margin: 0 auto;
-  padding-top: 100px;
+  margin-top: 100px;
   font-size: 20px;
+
+  @media (max-width: 768px) {
+    margin-top: 30px;
+  }
 `;
 export const Img = styled.img`
   max-width: 200px;

@@ -6,6 +6,7 @@ const MIME_TYPES_AVATAR = {
   "image/png": "png",
 };
 
+// Set the storage engine for the avatar
 const storageAvatar = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, "images/avatars");
@@ -17,6 +18,7 @@ const storageAvatar = multer.diskStorage({
     callback(null, name + "_" + Date.now() + "." + extension);
   },
 });
+
 
 const uploadAvatar = multer({
   storage: storageAvatar,

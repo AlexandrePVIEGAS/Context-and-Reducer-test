@@ -1,4 +1,12 @@
-export async function fetchData(id, refLastName, refFirstName, refBiography, refEmail, setImgSrc) {
+/**
+ * Receives the user's data
+ * @param {Number} id
+ * @param {Function} refLastName
+ * @param {Function} refFirstName
+ * @param {Function} refEmail
+ * @param {Function} setImgSrc
+ */
+async function fetchData(id, refLastName, refFirstName, refEmail, setImgSrc) {
   try {
     const resultApi = await fetch("http://localhost:3000/api/user/" + id, {
       method: "GET",
@@ -7,19 +15,20 @@ export async function fetchData(id, refLastName, refFirstName, refBiography, ref
     const data = await resultApi.json();
     refLastName.current.value = data.user.lastName;
     refFirstName.current.value = data.user.firstName;
-    refBiography.current.value = data.user.biography;
     refEmail.current.value = data.user.email;
-    if (data.user.avatarUrl === null) {
-      setImgSrc("/images/default.png");
-    } else {
-      setImgSrc(data.user.avatarUrl);
-    }
+    data.user.avatarUrl ? setImgSrc(data.user.avatarUrl) : setImgSrc("/images/default.png");
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function updateImg(img, id, setImgSrc) {
+/**
+ * Update the user's avatar
+ * @param {File} img
+ * @param {Number} id
+ * @param {Function} setImgSrc
+ */
+async function updateAvatar(img, id, setImgSrc) {
   const formData = new FormData();
   formData.append("avatar", img);
   try {
@@ -37,7 +46,13 @@ export async function updateImg(img, id, setImgSrc) {
   }
 }
 
-export async function updateData(id, refLastName, refFirstName, refBiography) {
+/**
+ * Update the user's data
+ * @param {Number} id
+ * @param {Function} refLastName
+ * @param {Function} refFirstName
+ */
+async function updateUser(id, refLastName, refFirstName) {
   try {
     await fetch("http://localhost:3000/api/user/" + id, {
       method: "PUT",
@@ -48,7 +63,6 @@ export async function updateData(id, refLastName, refFirstName, refBiography) {
       body: JSON.stringify({
         lastName: refLastName.current.value,
         firstName: refFirstName.current.value,
-        biography: refBiography.current.value,
       }),
     });
     alert("Vos informations ont été mises à jour !");
@@ -57,7 +71,12 @@ export async function updateData(id, refLastName, refFirstName, refBiography) {
   }
 }
 
-export async function deleteData(id, navigate) {
+/**
+ * Delete a user
+ * @param {Number} id
+ * @param {Function} navigate
+ */
+async function deleteUser(id, navigate) {
   try {
     await fetch("http://localhost:3000/api/user/" + id, {
       method: "DELETE",
@@ -69,3 +88,10 @@ export async function deleteData(id, navigate) {
     console.log(error);
   }
 }
+
+module.exports = {
+  fetchData,
+  updateAvatar,
+  updateUser,
+  deleteUser,
+};
