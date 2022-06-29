@@ -21,8 +21,7 @@ export const Button = styled.button`
   ${({ smallButton }) =>
     smallButton &&
     `width: auto; 
-    margin: 0; 
-    padding: 8px 20px; 
+    margin: 0;
     font-size: 12px; 
     font-weight: bold;`}
 `;
