@@ -3,6 +3,9 @@ import Message from "./Message";
 import { Container, Div, NameAndDate, UserName } from "./style";
 
 function Post({ post, editPost, setEditPost, setDataPosts, setDisplayPosts }) {
+
+  console.log(post);
+
   return (
     <Container key={post.user_id}>
       {/* Avatar */}

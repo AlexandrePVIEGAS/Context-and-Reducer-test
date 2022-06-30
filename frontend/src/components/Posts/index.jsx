@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
+import { AppContext } from "../../contexts/AppContext";
 import CreatePost from "./CreatePost";
 import Post from "./Post";
 import Buttons from "./Buttons";
@@ -9,23 +10,22 @@ import { getAllPosts } from "./function";
 import { Container } from "./style";
 
 function Posts({ setDisplayPosts }) {
+  // TODO get rid of posts local state
   const [dataPosts, setDataPosts] = useState([]);
   const [editPost, setEditPost] = useState();
+  const {refreshPosts, posts} = useContext(AppContext);
 
   useEffect(() => {
-    getAllPosts(setDataPosts, setDisplayPosts);
+    getAllPosts(setDataPosts, setDisplayPosts, refreshPosts);
   }, [setDisplayPosts]);
 
   return (
     <>
       {/* Create a Post */}
-      <CreatePost
-        setDataPosts={setDataPosts}
-        setDisplayPosts={setDisplayPosts}
-      />
+      <CreatePost />
 
       {/* Display posts */}
-      {dataPosts.map((post) => {
+      {posts.map((post) => {
         return (
           <Container key={post.id}>
             {/* Post */}

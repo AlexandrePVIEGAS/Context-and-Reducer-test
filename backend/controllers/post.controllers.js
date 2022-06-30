@@ -38,7 +38,7 @@ const createPost = async (req, res, next) => {
           likes: { include: { users: true } },
         },
       });
-      res.status(200).json({ message: "Le post " + post.id + " a été créé !" });
+      res.status(200).json({ message: "Le post " + post.id + " a été créé !", post: post });
     } else {
       // Create the post without image
       const post = await prisma.posts.create({
@@ -52,7 +52,7 @@ const createPost = async (req, res, next) => {
           likes: { include: { users: true } },
         },
       });
-      res.status(200).json({ message: "Le post " + post.id + " a été créé !" });
+      res.status(200).json({ message: "Le post " + post.id + " a été créé !", post: post });
     }
   } catch (error) {
     res.status(500).json({ error });

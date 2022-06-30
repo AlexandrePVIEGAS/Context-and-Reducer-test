@@ -7,12 +7,11 @@
  */
 async function createPost(
   dataPostToCreate,
-  getAllPosts,
-  setDataPosts,
-  setDisplayPosts
+  posts,
+  refreshPosts
 ) {
   try {
-    await fetch("http://localhost:3000/api/post", {
+    const apiCallRes = await fetch("http://localhost:3000/api/post", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -20,7 +19,9 @@ async function createPost(
       },
       body: JSON.stringify(dataPostToCreate),
     });
-    getAllPosts(setDataPosts, setDisplayPosts);
+    const newPost = await apiCallRes.json();
+    posts.push(newPost.post);
+    refreshPosts(posts);
   } catch (error) {
     console.log(error);
   }

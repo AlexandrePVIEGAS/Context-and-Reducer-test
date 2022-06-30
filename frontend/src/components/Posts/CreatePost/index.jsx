@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "../../../utils/styles/button";
 
+import { AppContext } from "../../../contexts/AppContext";
 import { getAllPosts } from "../function";
 import { createPost } from "./function";
 import { Form } from "./style";
 
-function CreatePost({ setDataPosts, setDisplayPosts }) {
+function CreatePost() {
   const userId = JSON.parse(localStorage.getItem("userId"));
+  const {posts, refreshPosts} = useContext(AppContext);
 
   const [dataPostToCreate, setDataPostToCreate] = useState({
     message: "",
@@ -23,7 +25,7 @@ function CreatePost({ setDataPosts, setDisplayPosts }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createPost(dataPostToCreate, getAllPosts, setDataPosts, setDisplayPosts);
+    createPost(dataPostToCreate, posts, refreshPosts);
   };
 
   return (
