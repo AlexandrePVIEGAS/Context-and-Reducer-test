@@ -7,7 +7,6 @@ export const Div = styled.div`
   width: 100%;
 
   ${({ container }) => container && `justify-content: flex-end;`}
-  ${({ miniContainer }) => miniContainer && `width: 93.5%;`}
 
   button {
     cursor: pointer;
