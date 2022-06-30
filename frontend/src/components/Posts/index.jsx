@@ -10,6 +10,7 @@ import { Container } from "./style";
 
 function Posts({ setDisplayPosts }) {
   const [dataPosts, setDataPosts] = useState([]);
+  const [editPost, setEditPost] = useState();
 
   useEffect(() => {
     getAllPosts(setDataPosts, setDisplayPosts);
@@ -19,7 +20,6 @@ function Posts({ setDisplayPosts }) {
     <>
       {/* Create a Post */}
       <CreatePost
-        getAllPosts={getAllPosts}
         setDataPosts={setDataPosts}
         setDisplayPosts={setDisplayPosts}
       />
@@ -29,13 +29,19 @@ function Posts({ setDisplayPosts }) {
         return (
           <Container key={post.id}>
             {/* Post */}
-            <Post post={post} />
+            <Post
+              post={post}
+              editPost={editPost}
+              setEditPost={setEditPost}
+              setDataPosts={setDataPosts}
+              setDisplayPosts={setDisplayPosts}
+            />
 
             {/* Like & Delete button */}
             <Buttons
               post={post}
-              dataPosts={dataPosts}
-              getAllPosts={getAllPosts}
+              editPost={editPost}
+              setEditPost={setEditPost}
               setDataPosts={setDataPosts}
               setDisplayPosts={setDisplayPosts}
             />

@@ -11,14 +11,17 @@ export const Container = styled.div`
 `;
 export const Div = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   width: 100%;
+  margin-left: 20px;
 
-  div {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
+  p {
+    margin: 4px 0 8px 0;
   }
+`;
+export const NameAndDate = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 export const UserName = styled.span`
   margin-bottom: 5px;

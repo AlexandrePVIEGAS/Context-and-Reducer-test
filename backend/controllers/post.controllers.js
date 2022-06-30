@@ -33,7 +33,7 @@ const createPost = async (req, res, next) => {
           user_id: Number(req.body.user_id),
         },
         include: {
-          users: true,
+          users: { include: { users_roles: true } },
           comments: { include: { users: true } },
           likes: { include: { users: true } },
         },
@@ -47,12 +47,42 @@ const createPost = async (req, res, next) => {
           user_id: Number(req.body.user_id),
         },
         include: {
-          users: true,
+          users: { include: { users_roles: true } },
           comments: { include: { users: true } },
           likes: { include: { users: true } },
         },
       });
       res.status(200).json({ message: "Le post " + post.id + " a été créé !" });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
+// Update a post
+const updatePost = async (req, res, next) => {
+  try {
+    // Check if the request have an image, if yes, update the post with the image
+    if (req.file !== undefined) {
+      const post = await prisma.posts.update({
+        where: { id: Number(req.params.id) },
+        data: {
+          message: req.body.message,
+          imageUrl: `/images/posts/${req.file.filename}`,
+        },
+      });
+      res
+        .status(200)
+        .json({ message: "Le post " + post.id + " a été modifié !" });
+    } else {
+      // Update the post without image
+      const post = await prisma.posts.update({
+        where: { id: Number(req.params.id) },
+        data: { message: req.body.message },
+      });
+      res
+        .status(200)
+        .json({ message: "Le post " + post.id + " a été modifié !" });
     }
   } catch (error) {
     res.status(500).json({ error });
@@ -120,6 +150,7 @@ const likePost = async (req, res, next) => {
 module.exports = {
   getAllPosts,
   createPost,
+  updatePost,
   deletePost,
   likePost,
 };

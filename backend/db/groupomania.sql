@@ -84,8 +84,8 @@ CREATE TABLE `roles` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `lastName` varchar(40) NOT NULL,
   `firstName` varchar(40) NOT NULL,
+  `lastName` varchar(40) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `avatarUrl` varchar(255) DEFAULT NULL,
@@ -171,7 +171,7 @@ ALTER TABLE `likes`
 
 INSERT INTO `users` (`firstName`, `lastName`, `email`, `password`)
   VALUES
-    ('ADMIN', 'ACCOUNT', 'admin@groupomania.fr', 'ADMIN');
+    ('COMPTE', 'ADMIN', 'admin@groupomania.fr', 'ADMIN');
 
 INSERT INTO `roles` (`name`)
   VALUES

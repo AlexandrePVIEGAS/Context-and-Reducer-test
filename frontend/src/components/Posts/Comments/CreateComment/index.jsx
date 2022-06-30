@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 
 import { Button } from "../../../../utils/styles/button";
 
+import { getAllPosts } from "../../function";
 import { createComment, getUserAvatar } from "./function";
 import { Form } from "./style";
 
-function CreateComment({ post, getAllPosts, setDataPosts, setDisplayPosts }) {
+function CreateComment({ post, setDataPosts, setDisplayPosts }) {
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   const [dataComment, setDataComment] = useState({
@@ -34,12 +35,14 @@ function CreateComment({ post, getAllPosts, setDataPosts, setDisplayPosts }) {
       {/* Create comment */}
       <Form onSubmit={handleSubmit}>
         <img src={`http://localhost:3000${imgSrc}`} alt="avatar" />
+
         <input
           placeholder="Écrivez votre commentaire ici..."
           type="text"
           name="message"
           onChange={handleChange}
         />
+
         <Button type="submit" smallButton>
           RÉPONDRE
         </Button>

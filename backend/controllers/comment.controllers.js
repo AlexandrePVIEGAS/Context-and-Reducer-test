@@ -16,7 +16,9 @@ const createComment = async (req, res, next) => {
         },
         include: { users: true },
       });
-      res.status(200).json({ message: "Le commentaire " + comment.id + " a été créé !" });
+      res
+        .status(200)
+        .json({ message: "Le commentaire " + comment.id + " a été créé !" });
     } else {
       // Create the comment without image
       const comment = await prisma.comments.create({
@@ -27,7 +29,41 @@ const createComment = async (req, res, next) => {
         },
         include: { users: true },
       });
-      res.status(200).json({ message: "Le commentaire " + comment.id + " a été créé !" });
+      res
+        .status(200)
+        .json({ message: "Le commentaire " + comment.id + " a été créé !" });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
+// Update a comment
+const updateComment = async (req, res, next) => {
+  try {
+    // Check if the request have an image, if yes, update the comment with the image
+    if (req.file !== undefined) {
+      const comment = await prisma.comments.update({
+        where: { id: Number(req.params.id) },
+        data: {
+          message: req.body.message,
+          imageUrl: `/images/comments/${req.file.filename}`,
+        },
+        include: { users: true },
+      });
+      res
+        .status(200)
+        .json({ message: "Le commentaire " + comment.id + " a été modifié !" });
+    } else {
+      // Update the comment without image
+      const comment = await prisma.comments.update({
+        where: { id: Number(req.params.id) },
+        data: { message: req.body.message },
+        include: { users: true },
+      });
+      res
+        .status(200)
+        .json({ message: "Le commentaire " + comment.id + " a été modifié !" });
     }
   } catch (error) {
     res.status(500).json({ error });
@@ -51,7 +87,9 @@ const deleteComment = async (req, res, next) => {
     await prisma.comments.delete({
       where: { id: Number(req.params.id) },
     });
-    res.status(200).json({ message: "Le commentaire " + comment.id + " a été surprimé !" });
+    res
+      .status(200)
+      .json({ message: "Le commentaire " + comment.id + " a été surprimé !" });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -59,5 +97,6 @@ const deleteComment = async (req, res, next) => {
 
 module.exports = {
   createComment,
+  updateComment,
   deleteComment,
 };

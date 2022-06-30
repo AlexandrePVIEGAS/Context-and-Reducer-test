@@ -1,6 +1,8 @@
-import { Container, Div, UserName } from "./style";
+import Message from "./Message";
 
-function Post({ post }) {
+import { Container, Div, NameAndDate, UserName } from "./style";
+
+function Post({ post, editPost, setEditPost, setDataPosts, setDisplayPosts }) {
   return (
     <Container key={post.user_id}>
       {/* Avatar */}
@@ -12,20 +14,31 @@ function Post({ post }) {
       ) : (
         <img src={`http://localhost:3000/images/default.png`} alt="avatar" />
       )}
-      {/* Name, message and date */}
+      
       <Div>
-        <div>
+        <NameAndDate>
+          {/* Name */}
           <UserName>
-            {post.users.lastName} {post.users.firstName}
+            {post.users.firstName} {post.users.lastName}
           </UserName>
-          <span>{post.message}</span>
-        </div>
-        <span>
-          {Intl.DateTimeFormat("fr-FR", {
-            dateStyle: "full",
-            timeStyle: "short",
-          }).format(new Date(post.createdAt))}
-        </span>
+
+          {/* Date */}
+          <span>
+            {Intl.DateTimeFormat("fr-FR", {
+              dateStyle: "full",
+              timeStyle: "short",
+            }).format(new Date(post.createdAt))}
+          </span>
+        </NameAndDate>
+
+        {/* Message */}
+        <Message
+          post={post}
+          editPost={editPost}
+          setEditPost={setEditPost}
+          setDataPosts={setDataPosts}
+          setDisplayPosts={setDisplayPosts}
+        />
       </Div>
     </Container>
   );
