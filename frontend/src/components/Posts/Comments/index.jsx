@@ -1,40 +1,34 @@
-import { useState, useEffect } from "react";
-import { Button } from "../../../utils/styles/button";
-import { getUser } from "./function";
-import { FormComment, Container, Avatar } from "./style";
+import CreateComment from "./CreateComment";
+import Comment from "./Comment";
+import DeleteButton from "./DeleteButton";
 
-function Comments({ post }) {
-  const userId = JSON.parse(localStorage.getItem("userId"));
-
-  const [imgSrc, setImgSrc] = useState("");
-
-  useEffect(() => {
-    getUser(userId, setImgSrc);
-  }, [userId]);
-
+function Comments({ post, getAllPosts, setDataPosts, setDisplayPosts }) {
   return (
     <>
-      <FormComment>
-        <Avatar src={`http://localhost:3000${imgSrc}`} alt="avatar" comment />
-        <input placeholder="Écrivez votre commentaire ici..." type="text" />
-        <Button type="submit" smallButton>
-          RÉPONDRE
-        </Button>
-      </FormComment>
+      {/* Create comment */}
+      <CreateComment
+        post={post}
+        getAllPosts={getAllPosts}
+        setDataPosts={setDataPosts}
+        setDisplayPosts={setDisplayPosts}
+      />
+
+      {/* Display comments */}
       {post.comments.map((comment) => {
         return (
-          <Container key={comment.id}>
-            {comment.users.avatarUrl ? (
-              <Avatar src={`http://localhost:3000${comment.users.avatarUrl}`} alt="avatar" />
-            ) : (
-              <Avatar src={`http://localhost:3000/images/default.png`} alt="avatar" />
-            )}
+          <div key={comment.id}>
+            {/* Comment */}
+            <Comment comment={comment} />
 
-            <span>
-              {comment.users.lastName} {comment.users.firstName}
-            </span>
-            <p>{comment.message}</p>
-          </Container>
+            {/* Delete button */}
+            <DeleteButton
+              post={post}
+              getAllPosts={getAllPosts}
+              setDataPosts={setDataPosts}
+              setDisplayPosts={setDisplayPosts}
+              comment={comment}
+            />
+          </div>
         );
       })}
     </>

@@ -3,16 +3,6 @@ const fs = require("fs");
 
 const prisma = new PrismaClient();
 
-// Get all users
-const getAllUsers = async (req, res, next) => {
-  try {
-    const users = await prisma.users.findMany();
-    res.status(200).json({ users, message: "Tous les utilisateurs ont été récupérés !" });
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-};
-
 // Get a user
 const getUser = async (req, res, next) => {
   try {
@@ -81,7 +71,6 @@ const deleteUser = async (req, res, next) => {
 };
 
 module.exports = {
-  getAllUsers,
   getUser,
   updateUser,
   deleteUser,

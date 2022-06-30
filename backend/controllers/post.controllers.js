@@ -7,32 +7,15 @@ const getAllPosts = async (req, res, next) => {
   try {
     const posts = await prisma.posts.findMany({
       include: {
-        users: true,
+        users: { include: { users_roles: true } },
         comments: { include: { users: true } },
         likes: { include: { users: true } },
       },
       orderBy: { createdAt: "desc" },
     });
-    res.status(200).json({ posts, message: "Tous les posts ont été récupérés !" });
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-};
-
-// Get a post
-const getPost = async (req, res, next) => {
-  try {
-    const post = await prisma.posts.findUnique({
-      where: {
-        id: Number(req.params.id),
-      },
-      include: {
-        users: true,
-        comments: { include: { users: true } },
-        likes: { include: { users: true } },
-      },
-    });
-    res.status(200).json({ post, message: "Le post " + post.id + " a été récupéré !" });
+    res
+      .status(200)
+      .json({ posts, message: "Tous les posts ont été récupérés !" });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -93,7 +76,9 @@ const deletePost = async (req, res, next) => {
     await prisma.posts.delete({
       where: { id: Number(req.params.id) },
     });
-    res.status(200).json({ message: "Le post " + post.id + " a été surprimé !" });
+    res
+      .status(200)
+      .json({ message: "Le post " + post.id + " a été surprimé !" });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -134,7 +119,6 @@ const likePost = async (req, res, next) => {
 
 module.exports = {
   getAllPosts,
-  getPost,
   createPost,
   deletePost,
   likePost,

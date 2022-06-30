@@ -7,21 +7,31 @@
  * @param {Function} setDataPosts
  * @param {Function} setDisplayPosts
  */
-async function likePost(dataPosts, postId, userId, getAllPosts, setDataPosts, setDisplayPosts) {
+async function likePost(
+  dataPosts,
+  postId,
+  userId,
+  getAllPosts,
+  setDataPosts,
+  setDisplayPosts
+) {
   const index = dataPosts.findIndex((post) => post.id === postId);
   if (index !== -1) {
     try {
-      await fetch("http://localhost:3000/api/post/" + dataPosts[index].id + "/like", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: userId,
-          post_id: dataPosts[index].id,
-        }),
-      });
+      await fetch(
+        "http://localhost:3000/api/post/" + dataPosts[index].id + "/like",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: userId,
+            post_id: dataPosts[index].id,
+          }),
+        }
+      );
       getAllPosts(setDataPosts, setDisplayPosts);
     } catch (error) {
       console.log(error);
@@ -39,7 +49,13 @@ async function likePost(dataPosts, postId, userId, getAllPosts, setDataPosts, se
  * @param {Function} setDataPosts
  * @param {Function} setDisplayPosts
  */
-async function deletePost(dataPosts, postId, getAllPosts, setDataPosts, setDisplayPosts) {
+async function deletePost(
+  dataPosts,
+  postId,
+  getAllPosts,
+  setDataPosts,
+  setDisplayPosts
+) {
   const index = dataPosts.findIndex((post) => post.id === postId);
   if (index !== -1) {
     try {

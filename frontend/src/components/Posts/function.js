@@ -20,29 +20,6 @@ async function getAllPosts(setDataPosts, setDisplayPosts) {
   }
 }
 
-/**
- * Create a new post
- * @param {Object} dataPost
- * @param {Function} setDataPosts
- * @param {Function} setDisplayPosts
- */
-async function createPost(dataPost, setDataPosts, setDisplayPosts) {
-  try {
-    await fetch("http://localhost:3000/api/post", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataPost),
-    });
-    getAllPosts(setDataPosts, setDisplayPosts);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 module.exports = {
   getAllPosts,
-  createPost,
 };
