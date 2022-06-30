@@ -46,7 +46,7 @@ function Buttons({
         
         <div>
           {/* Edit button */}
-          {editPost ? null : post.user_id === userId ||
+          {post.editPost ? null : post.user_id === userId ||
             post.users.users_roles.role_id === 1 ? (
             <button onClick={() => handleEdit(post.id)}>
               <FontAwesomeIcon icon={faPenToSquare} />

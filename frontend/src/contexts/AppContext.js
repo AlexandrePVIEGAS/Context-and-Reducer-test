@@ -15,7 +15,10 @@ const Provider = ({ children }) => {
   const value = {
     posts: state.posts,
     refreshPosts: (posts) => {
-      dispatch({ type: actions.POSTS_FETCHED, payload: posts });
+      dispatch({ type: actions.REFRESH_POSTS, payload: posts });
+    },
+    setEditPost: (post) => {
+      dispatch({ type: actions.SET_EDIT_POST, payload: post });
     }
   };
 
