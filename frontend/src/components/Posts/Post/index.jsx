@@ -1,8 +1,13 @@
+import { useState } from "react";
+
 import Message from "./Message";
+import Buttons from "../Buttons";
 
 import { Container, Div, NameAndDate, UserName } from "./style";
 
-function Post({ post, editPost, setEditPost, setDataPosts, setDisplayPosts }) {
+function Post({ post, setDataPosts, setDisplayPosts }) {
+  const [editPost, setEditPost] = useState();
+
   return (
     <Container key={post.user_id}>
       {/* Avatar */}
@@ -14,7 +19,7 @@ function Post({ post, editPost, setEditPost, setDataPosts, setDisplayPosts }) {
       ) : (
         <img src={`http://localhost:3000/images/default.png`} alt="avatar" />
       )}
-      
+
       <Div>
         <NameAndDate>
           {/* Name */}
@@ -34,10 +39,19 @@ function Post({ post, editPost, setEditPost, setDataPosts, setDisplayPosts }) {
         {/* Message */}
         <Message
           post={post}
-          editPost={editPost}
-          setEditPost={setEditPost}
           setDataPosts={setDataPosts}
           setDisplayPosts={setDisplayPosts}
+          editPost={editPost}
+          setEditPost={setEditPost}
+        />
+
+        {/* Like & Delete button */}
+        <Buttons
+          post={post}
+          setDataPosts={setDataPosts}
+          setDisplayPosts={setDisplayPosts}
+          editPost={editPost}
+          setEditPost={setEditPost}
         />
       </Div>
     </Container>

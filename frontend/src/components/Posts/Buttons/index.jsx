@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbsUp,
@@ -10,13 +11,8 @@ import { getAllPosts } from "../function";
 import { likePost, deletePost } from "./function";
 import { Div } from "./style";
 
-function Buttons({
-  post,
-  editPost,
-  setEditPost,
-  setDataPosts,
-  setDisplayPosts,
-}) {
+function Buttons({ post, setDataPosts, setDisplayPosts, editPost, setEditPost }) {
+
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   const handleLike = (postId) => {
@@ -33,7 +29,7 @@ function Buttons({
 
   return (
     <Div container>
-      <Div miniContainer>
+      <Div>
         <div>
           {/* Like button */}
           <button onClick={() => handleLike(post.id)}>
@@ -43,7 +39,7 @@ function Buttons({
           {/* Number of likes */}
           <span>{post.likes.length}</span>
         </div>
-        
+
         <div>
           {/* Edit button */}
           {editPost ? null : post.user_id === userId ||

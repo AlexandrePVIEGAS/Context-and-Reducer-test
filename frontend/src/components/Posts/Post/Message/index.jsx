@@ -10,11 +10,12 @@ import { Form } from "./style";
 
 function Message({
   post,
-  editPost,
-  setEditPost,
   setDataPosts,
   setDisplayPosts,
+  editPost,
+  setEditPost
 }) {
+
   const [updatePostData, setUpdatePostData] = useState({
     message: "",
     // imageUrl : ,
