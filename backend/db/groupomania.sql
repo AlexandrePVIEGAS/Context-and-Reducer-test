@@ -1,6 +1,6 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET GLOBAL time_zone = "+02:00";
+SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 --
@@ -20,7 +20,7 @@ CREATE TABLE `likes` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
-  `createdAt` datetime NOT NULL
+  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -32,11 +32,10 @@ DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `message` varchar(255) NOT NULL,
-  `imageUrl` varchar(255) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime DEFAULT NULL
+  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -50,8 +49,8 @@ CREATE TABLE `posts` (
   `message` varchar(255) NOT NULL,
   `imageUrl` varchar(255) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime DEFAULT NULL
+  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -89,8 +88,8 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `avatarUrl` varchar(255) DEFAULT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime DEFAULT NULL
+  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -171,7 +170,7 @@ ALTER TABLE `likes`
 
 INSERT INTO `users` (`firstName`, `lastName`, `email`, `password`)
   VALUES
-    ('COMPTE', 'ADMIN', 'admin@groupomania.fr', 'ADMIN');
+    ('COMPTE', 'ADMIN', 'admin@groupomania.fr', '$2a$10$V154N4RM4TiXQqWp1ilt7uCGvi7SReQVtQAx2HjRksvSY0WcZDDbW');
 
 INSERT INTO `roles` (`name`)
   VALUES

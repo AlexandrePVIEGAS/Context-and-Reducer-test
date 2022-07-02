@@ -21,7 +21,6 @@ function Comments({ post, setDataPosts, setDisplayPosts }) {
 
             {/* Delete button */}
             <DeleteButton
-              post={post}
               setDataPosts={setDataPosts}
               setDisplayPosts={setDisplayPosts}
               comment={comment}

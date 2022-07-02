@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../assets/icon-left-font.png";
-import { Img, Form } from "../../utils/styles/Form";
+import { Form } from "../../utils/styles/form";
 import { Button } from "../../utils/styles/button";
 
 import { validate, fetchData } from "./function";
-import { Message } from "./style";
+import { Img, Message } from "./style";
 
 function SignUp() {
   const [userSignup, setUserSignup] = useState({
@@ -36,7 +36,9 @@ function SignUp() {
         <Img src={Logo} alt="logo" />
       </Link>
 
-      {Object.keys(formErrors).length === 0 && isSubmit ? <Message success>Inscription réussie !</Message> : null}
+      {Object.keys(formErrors).length === 0 && isSubmit ? (
+        <Message success>Inscription réussie !</Message>
+      ) : null}
 
       {Object.keys(formErrors).length === 0 && userExist ? (
         <Message error>Cet utilisateur existe déjà !</Message>
@@ -45,25 +47,49 @@ function SignUp() {
       <Form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="lastName">Nom</label>
-          <input type="text" id="lastName" name="lastName" onChange={handleChange} required />
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            onChange={handleChange}
+            required
+          />
           <p>{formErrors.lastName}</p>
         </div>
 
         <div>
           <label htmlFor="firstName">Prénom</label>
-          <input type="text" id="firstName" name="firstName" onChange={handleChange} required />
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            onChange={handleChange}
+            required
+          />
           <p>{formErrors.firstName}</p>
         </div>
 
         <div>
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" name="email" onChange={handleChange} required />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            onChange={handleChange}
+            required
+          />
           <p>{formErrors.email}</p>
         </div>
 
         <div>
           <label htmlFor="password">Mot de passe</label>
-          <input type="password" id="password" name="password" onChange={handleChange} required />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            onChange={handleChange}
+            required
+          />
           <p>{formErrors.password}</p>
         </div>
 

@@ -18,8 +18,8 @@ const signUp = async (req, res, next) => {
       // Create a user
       const user = await prisma.users.create({
         data: {
-          lastName: req.body.lastName,
           firstName: req.body.firstName,
+          lastName: req.body.lastName,
           email: req.body.email,
           password: req.body.password,
         },
@@ -27,7 +27,7 @@ const signUp = async (req, res, next) => {
       await prisma.users_roles.create({
         data: { user_id: user.id },
       });
-      res.status(200).json({ message: "Utilisateur crée !" });
+      res.status(200).json({ user, message: "Utilisateur crée !" });
     }
   } catch (error) {
     res.status(500).json({ error });
@@ -49,9 +49,13 @@ const login = async (req, res, next) => {
       if (!valid) {
         res.status(404).json({ password: "Mot de passe incorrect !" });
       } else {
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+          expiresIn: process.env.JWT_EXPIRES_IN,
+        });
         res.cookie("Token", token, { httpOnly: true });
-        res.status(200).json({ userId: user.id, message: "Connexion réussie !" });
+        res
+          .status(200)
+          .json({ userId: user.id, message: "Connexion réussie !" });
       }
     }
   } catch (error) {

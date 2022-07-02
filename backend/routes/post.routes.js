@@ -9,13 +9,14 @@ const {
 } = require("../controllers/post.controllers");
 
 const { cookieRequired, verifyPost } = require("../middleware/auth");
+const { uploadPostImage } = require("../middleware/multer-config");
 
 const router = express.Router();
 
 // Post CRUD
 router.get("/", cookieRequired, getAllPosts);
-router.post("/", cookieRequired, createPost);
-router.put("/:id", cookieRequired, updatePost);
+router.post("/", cookieRequired, uploadPostImage, createPost);
+router.put("/:id", cookieRequired, uploadPostImage, updatePost);
 router.delete("/:id", cookieRequired, verifyPost, deletePost);
 
 // Like

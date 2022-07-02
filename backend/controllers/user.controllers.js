@@ -9,7 +9,7 @@ const getUser = async (req, res, next) => {
     const user = await prisma.users.findUnique({
       where: { id: Number(req.params.id) },
     });
-    res.status(200).json({ user, message: "L'Utilisateur : " + user.id + " a été récupéré !" });
+    res.status(200).json({ user, message: "L'utilisateur a été récupéré !" });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -18,7 +18,7 @@ const getUser = async (req, res, next) => {
 // Update a user
 const updateUser = async (req, res, next) => {
   try {
-    // Check if the request have an avatar, if yes
+    // Check if the request have an image, if yes
     if (req.file !== undefined) {
       const user = await prisma.users.findUnique({
         where: { id: Number(req.params.id) },
@@ -30,19 +30,19 @@ const updateUser = async (req, res, next) => {
       }
       // Update the user's avatar with the new one
       await prisma.users.update({
-        where: { id: Number(req.params.id) },
+        where: { id: user.id },
         data: { avatarUrl: `/images/avatars/${req.file.filename}` },
       });
     }
-    // Update the information of the user
+    // Update the user fisrtname and lastname
     const user = await prisma.users.update({
       where: { id: Number(req.params.id) },
       data: {
-        lastName: req.body.lastName,
         firstName: req.body.firstName,
+        lastName: req.body.lastName,
       },
     });
-    res.status(200).json({ user, message: "L'Utilisateur " + user.id + " a été modifié !" });
+    res.status(200).json({ user, message: "L'utilisateur a été modifié !" });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -64,7 +64,7 @@ const deleteUser = async (req, res, next) => {
       where: { id: user.id },
     });
     res.clearCookie("Token");
-    res.status(200).json({ user, message: "L'Utilisateur " + user.id + " a été surprimé !" });
+    res.status(200).json({ user, message: "L'utilisateur a été surprimé !" });
   } catch (error) {
     res.status(500).json({ error });
   }

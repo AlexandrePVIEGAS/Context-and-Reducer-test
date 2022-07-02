@@ -1,31 +1,34 @@
 /**
  * Create a comment
- * @param {Object} dataComment
- * @param {Function} getAllPosts
- * @param {Function} setDataPosts
- * @param {Function} setDisplayPosts
+ * @param {String} commentMessage 
+ * @param {Number} userId 
+ * @param {Number} postId 
+ * @param {Function} getAllPosts 
+ * @param {Function} setDataPosts 
+ * @param {Function} setDisplayPosts 
  */
 async function createComment(
-  dataComment,
+  commentMessage,
+  userId,
+  postId,
   getAllPosts,
   setDataPosts,
   setDisplayPosts
 ) {
   try {
-    const resultApi = await fetch("http://localhost:3000/api/comment", {
+    await fetch("http://localhost:3000/api/comment", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataComment),
+      body: JSON.stringify({
+        message: commentMessage,
+        user_id: userId,
+        post_id: postId,
+      }),
     });
-    const data = await resultApi.json();
-    if (!data.error) {
-      getAllPosts(setDataPosts, setDisplayPosts);
-    } else {
-      console.log(data.error);
-    }
+    getAllPosts(setDataPosts, setDisplayPosts);
   } catch (error) {
     console.log(error);
   }
@@ -33,8 +36,8 @@ async function createComment(
 
 /**
  * Get the user's avatar
- * @param {Number} userId
- * @param {Function,} setImgSrc
+ * @param {Number} userId 
+ * @param {Function} setImgSrc 
  */
 async function getUserAvatar(userId, setImgSrc) {
   try {
@@ -43,13 +46,9 @@ async function getUserAvatar(userId, setImgSrc) {
       credentials: "include",
     });
     const data = await resultApi.json();
-    if (!data.error) {
-      data.user.avatarUrl
-        ? setImgSrc(data.user.avatarUrl)
-        : setImgSrc("/images/default.png");
-    } else {
-      console.log(data.error);
-    }
+    data.user.avatarUrl
+      ? setImgSrc(data.user.avatarUrl)
+      : setImgSrc("/images/default.png");
   } catch (error) {
     console.log(error);
   }

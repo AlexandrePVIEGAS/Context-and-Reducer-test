@@ -4,7 +4,7 @@ import color from "../../utils/styles/colors";
 export const Nav = styled.nav`
   background-color: ${color.tertiary};
 
-  @media (max-width: 768px) {
+  @media (max-width: 680px) {
     padding: 5px 0;
   }
 `;
@@ -16,37 +16,26 @@ export const Container = styled.div`
   max-width: 1440px;
   margin: auto;
 
-  @media (max-width: 768px) {
-    width: 95%;
-  }
-`;
-export const LogoImg = styled.img`
-  display: flex;
-  width: 100%;
-  max-width: 400px;
+  img {
+    display: flex;
+    max-width: 400px;
 
-  @media (max-width: 768px) {
-    width: 95%;
+    @media (max-width: 680px) {
+      width: 95%;
+    }
   }
-`;
-export const Div = styled.div`
-  display: flex;
-`;
-export const AvatarImg = styled.img`
-  max-width: 60px;
-  max-height: 60px;
-  margin-right: 5px;
-  background-color: white;
-  border: 2px solid white;
-  border-radius: 50%;
-`;
-export const ContainerLink = styled.div`
-  display: flex;
-  flex-direction: column;
+
+  div {
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 680px) {
+      flex-direction: row;
+    }
+  }
 `;
 export const Button = styled.button`
   cursor: pointer;
-  font-size: 15px;
   color: ${color.primary};
   background: none;
   border: none;
@@ -54,13 +43,15 @@ export const Button = styled.button`
   &:hover {
     text-decoration: underline white;
   }
-`;
-export const Span = styled.span`
-  margin-left: 5px;
-  color: white;
-  font-weight: 600;
 
-  @media (max-width: 768px) {
-    display: none;
+  span {
+    margin-left: 5px;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+
+    @media (max-width: 680px) {
+      display: none;
+    }
   }
 `;

@@ -1,41 +1,34 @@
 import { useRef, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Header from "../../components/Header";
 import { Button } from "../../utils/styles/button";
 
-import { fetchData, updateAvatar, updateUser, deleteUser } from "./function";
-import { Container, Form, Img, Div, Input } from "./style";
+import { getUser, updateUser, deleteUser } from "./function";
+import { Container } from "./style";
 
 function EditProfile() {
-  const navigate = useNavigate();
-
   const { id } = useParams();
 
-  const refLastName = useRef();
   const refFirstName = useRef();
+  const refLastName = useRef();
   const refEmail = useRef();
 
-  const [img, setImg] = useState();
+  const [avatarFile, setAvatarFile] = useState(null);
   const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
-    fetchData(id, refLastName, refFirstName, refEmail, setImgSrc);
+    getUser(id, refFirstName, refLastName, refEmail, setImgSrc);
   }, [id]);
-
-  const handleImgChange = (e) => {
-    setImg(e.target.files[0]);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUser(id, refLastName, refFirstName);
-    updateAvatar(img, id, setImgSrc);
+    updateUser(avatarFile, id, refFirstName, refLastName, setImgSrc);
   };
 
   const handleDelete = () => {
     if (window.confirm("Voulez-vous vraiment supprimer votre compte ?")) {
-      deleteUser(id, navigate);
+      deleteUser(id);
     } else {
       return;
     }
@@ -44,35 +37,45 @@ function EditProfile() {
   return (
     <Container>
       <Header />
-      <Form onSubmit={handleSubmit}>
-        <Img src={`http://localhost:3000${imgSrc}`} alt="avatar" />
+      <form onSubmit={handleSubmit}>
+        <img src={`http://localhost:3000${imgSrc}`} alt="avatar" />
 
-        <Div>
+        <div>
           <label htmlFor="avatar">Modifier la photo de profil :</label>
-          <Input type="file" id="avatar" name="avatar" onChange={handleImgChange} />
-        </Div>
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            onChange={(e) => setAvatarFile(e.target.files[0])}
+          />
+        </div>
 
-        <Div>
-          <label htmlFor="lastName">Nom : </label>
-          <Input type="text" id="lastName" name="lastName" ref={refLastName} />
-        </Div>
-
-        <Div>
+        <div>
           <label htmlFor="firstName">Prénom : </label>
-          <Input type="text" id="firstName" name="firstName" ref={refFirstName} />
-        </Div>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            ref={refFirstName}
+          />
+        </div>
 
-        <Div>
+        <div>
+          <label htmlFor="lastName">Nom : </label>
+          <input type="text" id="lastName" name="lastName" ref={refLastName} />
+        </div>
+
+        <div>
           <label htmlFor="email">Email : </label>
-          <Input type="email" id="email" name="email" ref={refEmail} disabled />
-        </Div>
+          <input type="email" id="email" name="email" ref={refEmail} disabled />
+        </div>
 
         <Button type="submit">Enregistrer</Button>
 
         <Button type="button" onClick={handleDelete} greyButton>
           Supprimer le compte
         </Button>
-      </Form>
+      </form>
     </Container>
   );
 }

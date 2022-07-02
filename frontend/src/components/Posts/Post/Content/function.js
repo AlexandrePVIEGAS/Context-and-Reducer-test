@@ -1,16 +1,16 @@
 /**
- * Create a post
- * @param {File} postImg 
+ * Update the post content
  * @param {String} postMessage 
- * @param {Number} userId 
+ * @param {File} postImg 
+ * @param {Number} postId 
  * @param {Function} getAllPosts 
  * @param {Function} setDataPosts 
  * @param {Function} setDisplayPosts 
  */
-async function createPost(
-  postImg,
+async function updatePost(
   postMessage,
-  userId,
+  postImg,
+  postId,
   getAllPosts,
   setDataPosts,
   setDisplayPosts
@@ -19,10 +19,9 @@ async function createPost(
     const formData = new FormData();
     formData.append("message", postMessage);
     formData.append("imageUrl", postImg);
-    formData.append("user_id", userId);
     try {
-      await fetch("http://localhost:3000/api/post", {
-        method: "POST",
+      await fetch("http://localhost:3000/api/post/" + postId, {
+        method: "PUT",
         credentials: "include",
         body: formData,
       });
@@ -32,16 +31,13 @@ async function createPost(
     }
   } else {
     try {
-      await fetch("http://localhost:3000/api/post", {
-        method: "POST",
+      await fetch("http://localhost:3000/api/post/" + postId, {
+        method: "PUT",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          message: postMessage,
-          user_id: userId,
-        }),
+        body: JSON.stringify({ message: postMessage }),
       });
       getAllPosts(setDataPosts, setDisplayPosts);
     } catch (error) {
@@ -51,5 +47,5 @@ async function createPost(
 }
 
 module.exports = {
-  createPost,
+  updatePost,
 };

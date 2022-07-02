@@ -8,7 +8,6 @@ import { getAllPosts } from "./function";
 import { Container } from "./style";
 
 function Posts({ setDisplayPosts }) {
-  
   const [dataPosts, setDataPosts] = useState([]);
 
   useEffect(() => {

@@ -1,26 +1,25 @@
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbsUp,
   faPenToSquare,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-// import { faThumbsUp as farFaThumbsUp } from "@fortawesome/free-regular-svg-icons";
 
-import { getAllPosts } from "../function";
+import { getAllPosts } from "../../function";
 import { likePost, deletePost } from "./function";
 import { Div } from "./style";
 
-function Buttons({ post, setDataPosts, setDisplayPosts, editPost, setEditPost }) {
-
+function Buttons({
+  post,
+  setDataPosts,
+  setDisplayPosts,
+  editPost,
+  setEditPost,
+}) {
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   const handleLike = (postId) => {
     likePost(postId, userId, getAllPosts, setDataPosts, setDisplayPosts);
-  };
-
-  const handleEdit = (postId) => {
-    setEditPost(true);
   };
 
   const handleDelete = (postId) => {
@@ -42,15 +41,14 @@ function Buttons({ post, setDataPosts, setDisplayPosts, editPost, setEditPost })
 
         <div>
           {/* Edit button */}
-          {editPost ? null : post.user_id === userId ||
-            post.users.users_roles.role_id === 1 ? (
-            <button onClick={() => handleEdit(post.id)}>
+          {editPost ? null : post.user_id === userId || userId === 1 ? (
+            <button onClick={(e) => setEditPost(true)}>
               <FontAwesomeIcon icon={faPenToSquare} />
             </button>
           ) : null}
 
           {/* Delete button */}
-          {post.user_id === userId || post.users.users_roles.role_id === 1 ? (
+          {post.user_id === userId || userId === 1 ? (
             <button onClick={() => handleDelete(post.id)}>
               <FontAwesomeIcon icon={faTrash} />
             </button>

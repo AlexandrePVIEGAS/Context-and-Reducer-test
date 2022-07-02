@@ -1,9 +1,16 @@
 import { useState } from "react";
 
-import Message from "./Message";
-import Buttons from "../Buttons";
+import Content from "./Content";
+import Buttons from "./Buttons";
 
-import { Container, Div, NameAndDate, UserName } from "./style";
+import {
+  Container,
+  Avatar,
+  Div,
+  NameAndDate,
+  Modified,
+  UserName,
+} from "./style";
 
 function Post({ post, setDataPosts, setDisplayPosts }) {
   const [editPost, setEditPost] = useState();
@@ -12,12 +19,12 @@ function Post({ post, setDataPosts, setDisplayPosts }) {
     <Container key={post.user_id}>
       {/* Avatar */}
       {post.users.avatarUrl ? (
-        <img
+        <Avatar
           src={`http://localhost:3000${post.users.avatarUrl}`}
           alt="avatar"
         />
       ) : (
-        <img src={`http://localhost:3000/images/default.png`} alt="avatar" />
+        <Avatar src={`http://localhost:3000/images/default.png`} alt="avatar" />
       )}
 
       <Div>
@@ -29,6 +36,7 @@ function Post({ post, setDataPosts, setDisplayPosts }) {
 
           {/* Date */}
           <span>
+            {post.updatedAt ? <Modified>(modifié)</Modified> : null}
             {Intl.DateTimeFormat("fr-FR", {
               dateStyle: "full",
               timeStyle: "short",
@@ -36,8 +44,8 @@ function Post({ post, setDataPosts, setDisplayPosts }) {
           </span>
         </NameAndDate>
 
-        {/* Message */}
-        <Message
+        {/* Content */}
+        <Content
           post={post}
           setDataPosts={setDataPosts}
           setDisplayPosts={setDisplayPosts}
@@ -45,7 +53,7 @@ function Post({ post, setDataPosts, setDisplayPosts }) {
           setEditPost={setEditPost}
         />
 
-        {/* Like & Delete button */}
+        {/* Like, Edit & Delete button */}
         <Buttons
           post={post}
           setDataPosts={setDataPosts}

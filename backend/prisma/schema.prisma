@@ -10,11 +10,10 @@ datasource db {
 model comments {
   id        Int       @id @default(autoincrement())
   message   String    @db.VarChar(255)
-  imageUrl  String?   @db.VarChar(255)
   user_id   Int
   post_id   Int
   createdAt DateTime  @default(now()) @db.DateTime(0)
-  updatedAt DateTime? @updatedAt @db.DateTime(0)
+  updatedAt DateTime? @db.DateTime(0)
   posts     posts     @relation(fields: [post_id], references: [id], onDelete: Cascade, map: "comments_ibfk2")
   users     users     @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "comments_ibfk1")
 
@@ -40,7 +39,7 @@ model posts {
   imageUrl  String?    @db.VarChar(255)
   user_id   Int
   createdAt DateTime   @default(now()) @db.DateTime(0)
-  updatedAt DateTime?  @updatedAt @db.DateTime(0)
+  updatedAt DateTime?  @db.DateTime(0)
   users     users      @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "posts_ibfk1")
   comments  comments[]
   likes     likes[]
@@ -56,13 +55,13 @@ model roles {
 
 model users {
   id          Int           @id @default(autoincrement())
-  lastName    String        @db.VarChar(40)
   firstName   String        @db.VarChar(40)
+  lastName    String        @db.VarChar(40)
   email       String        @unique(map: "email") @db.VarChar(255)
   password    String        @db.VarChar(255)
   avatarUrl   String?       @db.VarChar(255)
   createdAt   DateTime      @default(now()) @db.DateTime(0)
-  updatedAt   DateTime?     @updatedAt @db.DateTime(0)
+  updatedAt   DateTime?     @db.DateTime(0)
   comments    comments[]
   likes       likes[]
   posts       posts[]

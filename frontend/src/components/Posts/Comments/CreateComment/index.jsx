@@ -8,41 +8,44 @@ import { Form } from "./style";
 
 function CreateComment({ post, setDataPosts, setDisplayPosts }) {
   const userId = JSON.parse(localStorage.getItem("userId"));
-
-  const [dataComment, setDataComment] = useState({
-    message: "",
-    user_id: userId,
-    post_id: post.id,
-  });
+  const postId = post.id;
+  const [commentMessage, setCommentMessage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
     getUserAvatar(userId, setImgSrc);
   }, [userId]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDataComment({ ...dataComment, [name]: value });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    createComment(dataComment, getAllPosts, setDataPosts, setDisplayPosts);
+    createComment(
+      commentMessage,
+      userId,
+      postId,
+      getAllPosts,
+      setDataPosts,
+      setDisplayPosts
+    );
+    setCommentMessage("");
   };
 
   return (
     <>
-      {/* Create comment */}
       <Form onSubmit={handleSubmit}>
+        {/* Avatar */}
         <img src={`http://localhost:3000${imgSrc}`} alt="avatar" />
 
+        {/* Message input */}
         <input
-          placeholder="Écrivez votre commentaire ici..."
           type="text"
-          name="message"
-          onChange={handleChange}
+          placeholder="Écrivez votre commentaire ici..."
+          maxLength="255"
+          value={commentMessage}
+          onChange={(e) => setCommentMessage(e.target.value)}
+          required
         />
 
+        {/* Submit button */}
         <Button type="submit" smallButton>
           RÉPONDRE
         </Button>

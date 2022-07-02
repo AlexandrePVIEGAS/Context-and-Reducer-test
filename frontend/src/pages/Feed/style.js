@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import color from "../../utils/styles/colors";
 
-export const Div = styled.div`
+export const Container = styled.div`
   min-height: 100vh;
   background: ${color.secondary};
 `;
-export const Container = styled.div`
+export const Unauthorized = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,6 +20,7 @@ export const Container = styled.div`
     width: 90%;
     margin-top: 20px;
     font-size: 20px;
+    font-weight: bold;
     text-align: center;
   }
 `;

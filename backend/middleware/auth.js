@@ -5,10 +5,13 @@ const prisma = new PrismaClient();
 
 // Check if the user is connected to the website
 const cookieRequired = async (req, res, next) => {
-  if (!req.cookies.Token) {
-    res.status(403).json({ error: "Vous devez créer un compte pour utiliser le réseau social !" });
-  } else {
+  if (req.cookies.Token) {
     next();
+  } else {
+    res.status(403).json({
+      error:
+        "Vous devez créer un compte / vous connecter pour utiliser le réseau social !",
+    });
   }
 };
 
@@ -21,10 +24,10 @@ const verifyUser = async (req, res, next) => {
     const user = await prisma.users.findUnique({
       where: { id: Number(req.params.id) },
     });
-    if (userId !== user.id) {
-      res.status(403).json({ error: "Utilisateur non autorisé" });
-    } else {
+    if (userId === 1 || userId === user.id) {
       next();
+    } else {
+      res.status(403).json({ error: "Utilisateur non autorisé" });
     }
   } catch (error) {
     res.status(500).json({ error });
@@ -40,10 +43,10 @@ const verifyPost = async (req, res, next) => {
     const post = await prisma.posts.findUnique({
       where: { id: Number(req.params.id) },
     });
-    if (post.user_id !== userId) {
-      res.status(403).json({ error: "Utilisateur non autorisé" });
-    } else {
+    if (userId === 1 || userId === post.user_id) {
       next();
+    } else {
+      res.status(403).json({ error: "Utilisateur non autorisé" });
     }
   } catch (error) {
     res.status(500).json({ error });

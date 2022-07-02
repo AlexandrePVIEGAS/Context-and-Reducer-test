@@ -14,6 +14,12 @@ export const Form = styled.form`
     resize: none;
   }
 
+  img {
+    width: 92%;
+    margin-top: 10px;
+    border-radius: 10px;
+  }
+
   div {
     display: flex;
     justify-content: flex-end;
@@ -31,5 +37,12 @@ export const Form = styled.form`
     button {
       margin-left: 10px;
     }
+  }
+`;
+export const Div = styled.div`
+  img {
+    width: 92%;
+    margin-bottom: 10px;
+    border-radius: 10px;
   }
 `;

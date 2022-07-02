@@ -1,46 +1,24 @@
 /**
- * Receives the user's data
+ * Get the user's data
  * @param {Number} id
- * @param {Function} refLastName
  * @param {Function} refFirstName
+ * @param {Function} refLastName
  * @param {Function} refEmail
  * @param {Function} setImgSrc
  */
-async function fetchData(id, refLastName, refFirstName, refEmail, setImgSrc) {
+async function getUser(id, refFirstName, refLastName, refEmail, setImgSrc) {
   try {
     const resultApi = await fetch("http://localhost:3000/api/user/" + id, {
       method: "GET",
       credentials: "include",
     });
     const data = await resultApi.json();
-    refLastName.current.value = data.user.lastName;
     refFirstName.current.value = data.user.firstName;
+    refLastName.current.value = data.user.lastName;
     refEmail.current.value = data.user.email;
-    data.user.avatarUrl ? setImgSrc(data.user.avatarUrl) : setImgSrc("/images/default.png");
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-/**
- * Update the user's avatar
- * @param {File} img
- * @param {Number} id
- * @param {Function} setImgSrc
- */
-async function updateAvatar(img, id, setImgSrc) {
-  const formData = new FormData();
-  formData.append("avatar", img);
-  try {
-    const resultApi = await fetch("http://localhost:3000/api/user/" + id, {
-      method: "PUT",
-      credentials: "include",
-      body: formData,
-    });
-    const data = await resultApi.json();
-    if (data.user.avatarUrl !== null) {
-      setImgSrc(data.user.avatarUrl);
-    }
+    data.user.avatarUrl
+      ? setImgSrc(data.user.avatarUrl)
+      : setImgSrc("/images/default.png");
   } catch (error) {
     console.log(error);
   }
@@ -48,26 +26,51 @@ async function updateAvatar(img, id, setImgSrc) {
 
 /**
  * Update the user's data
+ * @param {File} avatarFile
  * @param {Number} id
- * @param {Function} refLastName
  * @param {Function} refFirstName
+ * @param {Function} refLastName
+ * @param {Function} setImgSrc
  */
-async function updateUser(id, refLastName, refFirstName) {
-  try {
-    await fetch("http://localhost:3000/api/user/" + id, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        lastName: refLastName.current.value,
-        firstName: refFirstName.current.value,
-      }),
-    });
-    alert("Vos informations ont été mises à jour !");
-  } catch (error) {
-    console.log(error);
+async function updateUser(
+  avatarFile,
+  id,
+  refFirstName,
+  refLastName,
+  setImgSrc
+) {
+  if (avatarFile !== null) {
+    const formData = new FormData();
+    formData.append("firstName", refFirstName.current.value);
+    formData.append("lastName", refLastName.current.value);
+    formData.append("avatar", avatarFile);
+    try {
+      const resultApi = await fetch("http://localhost:3000/api/user/" + id, {
+        method: "PUT",
+        credentials: "include",
+        body: formData,
+      });
+      const data = await resultApi.json();
+      setImgSrc(data.user.avatarUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    try {
+      await fetch("http://localhost:3000/api/user/" + id, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: refFirstName.current.value,
+          lastName: refLastName.current.value,
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
@@ -76,22 +79,20 @@ async function updateUser(id, refLastName, refFirstName) {
  * @param {Number} id
  * @param {Function} navigate
  */
-async function deleteUser(id, navigate) {
+async function deleteUser(id) {
   try {
     await fetch("http://localhost:3000/api/user/" + id, {
       method: "DELETE",
       credentials: "include",
     });
-    navigate("/");
-    window.location.reload();
+    window.location.href = "/";
   } catch (error) {
     console.log(error);
   }
 }
 
 module.exports = {
-  fetchData,
-  updateAvatar,
+  getUser,
   updateUser,
   deleteUser,
 };

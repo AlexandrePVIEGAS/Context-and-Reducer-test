@@ -32,10 +32,10 @@ export const Form = styled.form`
       cursor: pointer;
       margin-right: 10px;
       color: ${color.tertiary};
-    }
 
-    input {
-      display: none;
+      input {
+        display: none;
+      }
     }
   }
 `;

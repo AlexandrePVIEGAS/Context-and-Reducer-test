@@ -1,10 +1,11 @@
 /**
- * Log in
- * @param {Object} userLogin
+ * Login
+ * @param {String} userEmail
+ * @param {String} userPassword
  * @param {Function} navigate
  * @param {Function} setFormErrors
  */
-async function fetchData(userLogin, navigate, setFormErrors) {
+async function fetchData(userEmail, userPassword, navigate, setFormErrors) {
   try {
     const resultApi = await fetch("http://localhost:3000/api/auth/login", {
       method: "POST",
@@ -12,7 +13,10 @@ async function fetchData(userLogin, navigate, setFormErrors) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userLogin),
+      body: JSON.stringify({
+        email: userEmail,
+        password: userPassword,
+      }),
     });
     const data = await resultApi.json();
     if (!data.email && !data.password) {

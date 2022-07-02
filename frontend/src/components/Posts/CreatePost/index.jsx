@@ -10,40 +10,46 @@ import { Form } from "./style";
 
 function CreatePost({ setDataPosts, setDisplayPosts }) {
   const userId = JSON.parse(localStorage.getItem("userId"));
-
-  const [dataPostToCreate, setDataPostToCreate] = useState({
-    message: "",
-    user_id: userId,
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDataPostToCreate({ ...dataPostToCreate, [name]: value });
-  };
+  const [postMessage, setPostMessage] = useState("");
+  const [postImg, setPostImg] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createPost(dataPostToCreate, getAllPosts, setDataPosts, setDisplayPosts);
+    createPost(
+      postImg,
+      postMessage,
+      userId,
+      getAllPosts,
+      setDataPosts,
+      setDisplayPosts
+    );
+    setPostMessage("");
   };
 
   return (
     <>
-      {/* Submit Post */}
       <Form onSubmit={handleSubmit}>
+        {/* Message textarea */}
         <textarea
           placeholder="Écrivez votre post ici..."
-          name="message"
           maxLength="255"
-          onChange={handleChange}
+          value={postMessage}
+          onChange={(e) => setPostMessage(e.target.value)}
+          required
         />
 
         <div>
-          <label htmlFor="imageUrl">
+          {/* File input */}
+          <label htmlFor="postImage">
             <FontAwesomeIcon icon={faImage} size="2x" />
+            <input
+              type="file"
+              id="postImage"
+              onChange={(e) => setPostImg(e.target.files[0])}
+            />
           </label>
 
-          <input type="file" id="imageUrl" name="imageUrl" />
-
+          {/* Submit button */}
           <Button type="submit" smallButton>
             CRÉER UN POST
           </Button>
