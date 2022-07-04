@@ -1,9 +1,9 @@
 /**
  * Get all posts from the database
  * @param {Function} setDataPosts
- * @param {Function} setDisplayPosts
+ * @param {Function} setDisplayPage
  */
-async function getAllPosts(setDataPosts, setDisplayPosts) {
+async function getAllPosts(setDataPosts, setDisplayPage) {
   try {
     const resultApi = await fetch("http://localhost:3000/api/post", {
       method: "GET",
@@ -13,7 +13,7 @@ async function getAllPosts(setDataPosts, setDisplayPosts) {
     if (!data.error) {
       setDataPosts(data.posts);
     } else {
-      setDisplayPosts(false);
+      setDisplayPage(false);
     }
   } catch (error) {
     console.log(error);

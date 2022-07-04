@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const prisma = new PrismaClient();
 
 // Check if the user is connected to the website
-const cookieRequired = async (req, res, next) => {
+exports.cookie = async (req, res, next) => {
   if (req.cookies.Token) {
     next();
   } else {
@@ -16,7 +16,7 @@ const cookieRequired = async (req, res, next) => {
 };
 
 // Check if the user is allowed to receive/manage user's data
-const verifyUser = async (req, res, next) => {
+exports.user = async (req, res, next) => {
   try {
     const token = req.cookies.Token;
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -35,7 +35,7 @@ const verifyUser = async (req, res, next) => {
 };
 
 // Check if the user is allowed to manage post's data
-const verifyPost = async (req, res, next) => {
+exports.post = async (req, res, next) => {
   try {
     const token = req.cookies.Token;
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -53,8 +53,21 @@ const verifyPost = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  cookieRequired,
-  verifyUser,
-  verifyPost,
+// Check if the user is allowed to manage comment's data
+exports.comment = async (req, res, next) => {
+  try {
+    const token = req.cookies.Token;
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.userId;
+    const comment = await prisma.comments.findUnique({
+      where: { id: Number(req.params.id) },
+    });
+    if (userId === 1 || userId === comment.user_id) {
+      next();
+    } else {
+      res.status(403).json({ error: "Utilisateur non autorisé" });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 };

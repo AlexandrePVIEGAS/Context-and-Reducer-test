@@ -2,13 +2,13 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 
-import { Button } from "../../../utils/styles/button";
+import Button from "../../../utils/styles/button";
 
 import { getAllPosts } from "../function";
 import { createPost } from "./function";
 import { Form } from "./style";
 
-function CreatePost({ setDataPosts, setDisplayPosts }) {
+function CreatePost({ setDataPosts, setDisplayPage }) {
   const userId = JSON.parse(localStorage.getItem("userId"));
   const [postMessage, setPostMessage] = useState("");
   const [postImg, setPostImg] = useState(null);
@@ -21,7 +21,7 @@ function CreatePost({ setDataPosts, setDisplayPosts }) {
       userId,
       getAllPosts,
       setDataPosts,
-      setDisplayPosts
+      setDisplayPage
     );
     setPostMessage("");
   };

@@ -1,18 +1,13 @@
 const express = require("express");
 
-const {
-  createComment,
-  updateComment,
-  deleteComment,
-} = require("../controllers/comment.controllers");
-
-const { cookieRequired } = require("../middleware/auth");
+const commentCtrl = require("../controllers/comment.controllers");
+const check = require("../middleware/auth");
 
 const router = express.Router();
 
 // Post CRUD
-router.post("/", cookieRequired, createComment);
-router.put("/:id", cookieRequired, updateComment);
-router.delete("/:id", cookieRequired, deleteComment);
+router.post("/", check.cookie, commentCtrl.createComment);
+router.put("/:id", check.cookie, check.comment, commentCtrl.updateComment);
+router.delete("/:id", check.cookie, check.comment, commentCtrl.deleteComment);
 
 module.exports = router;

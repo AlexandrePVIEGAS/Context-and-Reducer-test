@@ -3,20 +3,20 @@
  * @param {Number} commentId
  * @param {Function} getAllPosts
  * @param {Function} setDataPosts
- * @param {Function} setDisplayPosts
+ * @param {Function} setDisplayPage
  */
 async function deleteComment(
   commentId,
   getAllPosts,
   setDataPosts,
-  setDisplayPosts
+  setDisplayPage
 ) {
   try {
     await fetch("http://localhost:3000/api/comment/" + commentId, {
       method: "DELETE",
       credentials: "include",
     });
-    getAllPosts(setDataPosts, setDisplayPosts);
+    getAllPosts(setDataPosts, setDisplayPage);
   } catch (error) {
     console.log(error);
   }

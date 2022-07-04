@@ -5,7 +5,7 @@
  * @param {Number} userId 
  * @param {Function} getAllPosts 
  * @param {Function} setDataPosts 
- * @param {Function} setDisplayPosts 
+ * @param {Function} setDisplayPage 
  */
 async function createPost(
   postImg,
@@ -13,7 +13,7 @@ async function createPost(
   userId,
   getAllPosts,
   setDataPosts,
-  setDisplayPosts
+  setDisplayPage
 ) {
   if (postImg !== null) {
     const formData = new FormData();
@@ -26,7 +26,7 @@ async function createPost(
         credentials: "include",
         body: formData,
       });
-      getAllPosts(setDataPosts, setDisplayPosts);
+      getAllPosts(setDataPosts, setDisplayPage);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +43,7 @@ async function createPost(
           user_id: userId,
         }),
       });
-      getAllPosts(setDataPosts, setDisplayPosts);
+      getAllPosts(setDataPosts, setDisplayPage);
     } catch (error) {
       console.log(error);
     }

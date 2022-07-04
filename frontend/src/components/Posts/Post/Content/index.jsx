@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 
-import { Button } from "../../../../utils/styles/button";
+import Button from "../../../../utils/styles/button";
 
 import { getAllPosts } from "../../function";
 import { updatePost } from "./function";
@@ -11,7 +11,7 @@ import { Form, Div } from "./style";
 function Message({
   post,
   setDataPosts,
-  setDisplayPosts,
+  setDisplayPage,
   editPost,
   setEditPost,
 }) {
@@ -25,7 +25,7 @@ function Message({
       postId,
       getAllPosts,
       setDataPosts,
-      setDisplayPosts
+      setDisplayPage
     );
     setEditPost(false);
   };

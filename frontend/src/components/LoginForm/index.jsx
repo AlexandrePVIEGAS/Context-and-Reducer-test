@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Form } from "../../utils/styles/form";
-import { Button } from "../../utils/styles/button";
+import Form from "../../utils/styles/form";
+import Button from "../../utils/styles/button";
 
-import { fetchData } from "./function";
+import { sendLoginData } from "./function";
 
 function LoginForm() {
   let navigate = useNavigate();
@@ -14,7 +14,7 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetchData(userEmail, userPassword, navigate, setFormErrors);
+    sendLoginData(userEmail, userPassword, navigate, setFormErrors);
   };
 
   return (

@@ -5,11 +5,11 @@ import { getAllPosts } from "../../function";
 import { deleteComment } from "./function";
 import { Container } from "./style";
 
-function DeleteButton({ setDataPosts, setDisplayPosts, comment }) {
+function DeleteButton({ setDataPosts, setDisplayPage, comment }) {
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   const handleDelete = (commentId) => {
-    deleteComment(commentId, getAllPosts, setDataPosts, setDisplayPosts);
+    deleteComment(commentId, getAllPosts, setDataPosts, setDisplayPage);
   };
 
   return (

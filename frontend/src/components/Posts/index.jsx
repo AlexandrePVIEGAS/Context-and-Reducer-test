@@ -7,19 +7,19 @@ import Comments from "./Comments";
 import { getAllPosts } from "./function";
 import { Container } from "./style";
 
-function Posts({ setDisplayPosts }) {
+function Posts({ setDisplayPage }) {
   const [dataPosts, setDataPosts] = useState([]);
 
   useEffect(() => {
-    getAllPosts(setDataPosts, setDisplayPosts);
-  }, [setDisplayPosts]);
+    getAllPosts(setDataPosts, setDisplayPage);
+  }, [setDisplayPage]);
 
   return (
     <>
       {/* Create a Post */}
       <CreatePost
         setDataPosts={setDataPosts}
-        setDisplayPosts={setDisplayPosts}
+        setDisplayPage={setDisplayPage}
       />
 
       {/* Display posts */}
@@ -30,7 +30,7 @@ function Posts({ setDisplayPosts }) {
             <Post
               post={post}
               setDataPosts={setDataPosts}
-              setDisplayPosts={setDisplayPosts}
+              setDisplayPage={setDisplayPage}
             />
 
             {/* Comments */}
@@ -38,7 +38,7 @@ function Posts({ setDisplayPosts }) {
               post={post}
               getAllPosts={getAllPosts}
               setDataPosts={setDataPosts}
-              setDisplayPosts={setDisplayPosts}
+              setDisplayPage={setDisplayPage}
             />
           </Container>
         );

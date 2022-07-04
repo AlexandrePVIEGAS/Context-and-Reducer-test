@@ -4,7 +4,7 @@ const fs = require("fs");
 const prisma = new PrismaClient();
 
 // Get all posts
-const getAllPosts = async (req, res, next) => {
+exports.getAllPosts = async (req, res, next) => {
   try {
     const posts = await prisma.posts.findMany({
       include: {
@@ -23,7 +23,7 @@ const getAllPosts = async (req, res, next) => {
 };
 
 // Create a post
-const createPost = async (req, res, next) => {
+exports.createPost = async (req, res, next) => {
   try {
     // Check if the request have an image, if yes, create the post with the image
     if (req.file !== undefined) {
@@ -51,7 +51,7 @@ const createPost = async (req, res, next) => {
 };
 
 // Update a post
-const updatePost = async (req, res, next) => {
+exports.updatePost = async (req, res, next) => {
   try {
     // Check if the request have an image, if yes
     if (req.file !== undefined) {
@@ -81,7 +81,7 @@ const updatePost = async (req, res, next) => {
 };
 
 // Delete a post
-const deletePost = async (req, res, next) => {
+exports.deletePost = async (req, res, next) => {
   try {
     const post = await prisma.posts.findUnique({
       where: { id: Number(req.params.id) },
@@ -102,7 +102,7 @@ const deletePost = async (req, res, next) => {
 };
 
 // Like a post
-const likePost = async (req, res, next) => {
+exports.likePost = async (req, res, next) => {
   try {
     const like = await prisma.likes.findFirst({
       where: {
@@ -132,12 +132,4 @@ const likePost = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ error });
   }
-};
-
-module.exports = {
-  getAllPosts,
-  createPost,
-  updatePost,
-  deletePost,
-  likePost,
 };

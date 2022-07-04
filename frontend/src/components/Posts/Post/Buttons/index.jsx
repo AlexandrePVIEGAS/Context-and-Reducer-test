@@ -12,18 +12,18 @@ import { Div } from "./style";
 function Buttons({
   post,
   setDataPosts,
-  setDisplayPosts,
+  setDisplayPage,
   editPost,
   setEditPost,
 }) {
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   const handleLike = (postId) => {
-    likePost(postId, userId, getAllPosts, setDataPosts, setDisplayPosts);
+    likePost(postId, userId, getAllPosts, setDataPosts, setDisplayPage);
   };
 
   const handleDelete = (postId) => {
-    deletePost(postId, getAllPosts, setDataPosts, setDisplayPosts);
+    deletePost(postId, getAllPosts, setDataPosts, setDisplayPage);
   };
 
   return (

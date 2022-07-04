@@ -5,7 +5,7 @@
  * @param {Number} postId 
  * @param {Function} getAllPosts 
  * @param {Function} setDataPosts 
- * @param {Function} setDisplayPosts 
+ * @param {Function} setDisplayPage 
  */
 async function updatePost(
   postMessage,
@@ -13,7 +13,7 @@ async function updatePost(
   postId,
   getAllPosts,
   setDataPosts,
-  setDisplayPosts
+  setDisplayPage
 ) {
   if (postImg !== null) {
     const formData = new FormData();
@@ -25,7 +25,7 @@ async function updatePost(
         credentials: "include",
         body: formData,
       });
-      getAllPosts(setDataPosts, setDisplayPosts);
+      getAllPosts(setDataPosts, setDisplayPage);
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +39,7 @@ async function updatePost(
         },
         body: JSON.stringify({ message: postMessage }),
       });
-      getAllPosts(setDataPosts, setDisplayPosts);
+      getAllPosts(setDataPosts, setDisplayPage);
     } catch (error) {
       console.log(error);
     }

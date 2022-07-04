@@ -2,14 +2,14 @@ import CreateComment from "./CreateComment";
 import Comment from "./Comment";
 import DeleteButton from "./DeleteButton";
 
-function Comments({ post, setDataPosts, setDisplayPosts }) {
+function Comments({ post, setDataPosts, setDisplayPage }) {
   return (
     <>
       {/* Create comment */}
       <CreateComment
         post={post}
         setDataPosts={setDataPosts}
-        setDisplayPosts={setDisplayPosts}
+        setDisplayPage={setDisplayPage}
       />
 
       {/* Display comments */}
@@ -22,7 +22,7 @@ function Comments({ post, setDataPosts, setDisplayPosts }) {
             {/* Delete button */}
             <DeleteButton
               setDataPosts={setDataPosts}
-              setDisplayPosts={setDisplayPosts}
+              setDisplayPage={setDisplayPage}
               comment={comment}
             />
           </div>

@@ -1,15 +1,14 @@
 const express = require("express");
 
-const { getUser, updateUser, deleteUser } = require("../controllers/user.controllers");
-
-const { verifyUser } = require("../middleware/auth");
-const { uploadAvatar } = require("../middleware/multer-config");
+const userCtrl = require("../controllers/user.controllers");
+const check = require("../middleware/auth");
+const upload = require("../middleware/multer-config");
 
 const router = express.Router();
 
-// User CRUD
-router.get("/:id", verifyUser, getUser);
-router.put("/:id", verifyUser, uploadAvatar, updateUser);
-router.delete("/:id", verifyUser, deleteUser);
+// Get, Update, Delete a user
+router.get("/:id", check.user, userCtrl.getUser);
+router.put("/:id", check.user, upload.avatar, userCtrl.updateUser);
+router.delete("/:id", check.user, userCtrl.deleteUser);
 
 module.exports = router;

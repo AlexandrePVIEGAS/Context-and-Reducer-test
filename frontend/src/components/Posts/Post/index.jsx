@@ -12,7 +12,7 @@ import {
   UserName,
 } from "./style";
 
-function Post({ post, setDataPosts, setDisplayPosts }) {
+function Post({ post, setDataPosts, setDisplayPage }) {
   const [editPost, setEditPost] = useState();
 
   return (
@@ -48,7 +48,7 @@ function Post({ post, setDataPosts, setDisplayPosts }) {
         <Content
           post={post}
           setDataPosts={setDataPosts}
-          setDisplayPosts={setDisplayPosts}
+          setDisplayPage={setDisplayPage}
           editPost={editPost}
           setEditPost={setEditPost}
         />
@@ -57,7 +57,7 @@ function Post({ post, setDataPosts, setDisplayPosts }) {
         <Buttons
           post={post}
           setDataPosts={setDataPosts}
-          setDisplayPosts={setDisplayPosts}
+          setDisplayPage={setDisplayPage}
           editPost={editPost}
           setEditPost={setEditPost}
         />

@@ -7,6 +7,7 @@ async function disconnect() {
       method: "DELETE",
       credentials: "include",
     });
+    localStorage.clear();
     window.location.href = "/";
   } catch (error) {
     console.log(error);

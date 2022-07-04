@@ -5,20 +5,32 @@
  * @param {Function} refLastName
  * @param {Function} refEmail
  * @param {Function} setImgSrc
+ * @param {Function} setDisplayPage
  */
-async function getUser(id, refFirstName, refLastName, refEmail, setImgSrc) {
+async function getUser(
+  id,
+  refFirstName,
+  refLastName,
+  refEmail,
+  setImgSrc,
+  setDisplayPage
+) {
   try {
     const resultApi = await fetch("http://localhost:3000/api/user/" + id, {
       method: "GET",
       credentials: "include",
     });
     const data = await resultApi.json();
-    refFirstName.current.value = data.user.firstName;
-    refLastName.current.value = data.user.lastName;
-    refEmail.current.value = data.user.email;
-    data.user.avatarUrl
-      ? setImgSrc(data.user.avatarUrl)
-      : setImgSrc("/images/default.png");
+    if (!data.error) {
+      refFirstName.current.value = data.user.firstName;
+      refLastName.current.value = data.user.lastName;
+      refEmail.current.value = data.user.email;
+      data.user.avatarUrl
+        ? setImgSrc(data.user.avatarUrl)
+        : setImgSrc("/images/default.png");
+    } else {
+      setDisplayPage(false);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -43,7 +55,7 @@ async function updateUser(
     const formData = new FormData();
     formData.append("firstName", refFirstName.current.value);
     formData.append("lastName", refLastName.current.value);
-    formData.append("avatar", avatarFile);
+    formData.append("avatarUrl", avatarFile);
     try {
       const resultApi = await fetch("http://localhost:3000/api/user/" + id, {
         method: "PUT",
@@ -77,7 +89,6 @@ async function updateUser(
 /**
  * Delete a user
  * @param {Number} id
- * @param {Function} navigate
  */
 async function deleteUser(id) {
   try {

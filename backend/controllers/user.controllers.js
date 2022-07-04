@@ -4,7 +4,7 @@ const fs = require("fs");
 const prisma = new PrismaClient();
 
 // Get a user
-const getUser = async (req, res, next) => {
+exports.getUser = async (req, res, next) => {
   try {
     const user = await prisma.users.findUnique({
       where: { id: Number(req.params.id) },
@@ -16,7 +16,7 @@ const getUser = async (req, res, next) => {
 };
 
 // Update a user
-const updateUser = async (req, res, next) => {
+exports.updateUser = async (req, res, next) => {
   try {
     // Check if the request have an image, if yes
     if (req.file !== undefined) {
@@ -49,7 +49,7 @@ const updateUser = async (req, res, next) => {
 };
 
 // Delete a user
-const deleteUser = async (req, res, next) => {
+exports.deleteUser = async (req, res, next) => {
   try {
     const user = await prisma.users.findUnique({
       where: { id: Number(req.params.id) },
@@ -70,8 +70,3 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  getUser,
-  updateUser,
-  deleteUser,
-};

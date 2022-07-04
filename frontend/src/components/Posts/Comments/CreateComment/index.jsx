@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
-import { Button } from "../../../../utils/styles/button";
+import Button from "../../../../utils/styles/button";
 
 import { getAllPosts } from "../../function";
 import { createComment, getUserAvatar } from "./function";
 import { Form } from "./style";
 
-function CreateComment({ post, setDataPosts, setDisplayPosts }) {
+function CreateComment({ post, setDataPosts, setDisplayPage }) {
   const userId = JSON.parse(localStorage.getItem("userId"));
   const postId = post.id;
   const [commentMessage, setCommentMessage] = useState("");
@@ -24,7 +24,7 @@ function CreateComment({ post, setDataPosts, setDisplayPosts }) {
       postId,
       getAllPosts,
       setDataPosts,
-      setDisplayPosts
+      setDisplayPage
     );
     setCommentMessage("");
   };

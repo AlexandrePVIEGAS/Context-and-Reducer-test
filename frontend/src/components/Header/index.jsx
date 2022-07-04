@@ -13,11 +13,6 @@ import { Nav, Container, Button } from "./style";
 const Header = () => {
   const userId = JSON.parse(localStorage.getItem("userId"));
 
-  const handleDisconnect = () => {
-    localStorage.clear();
-    disconnect();
-  };
-
   return (
     <Nav>
       <Container>
@@ -34,7 +29,7 @@ const Header = () => {
             </Button>
           </Link>
 
-          <Button onClick={handleDisconnect}>
+          <Button onClick={(e) => disconnect()}>
             <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
 
             <span>Se déconnecter</span>

@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const prisma = new PrismaClient();
 
 // Sign up
-const signUp = async (req, res, next) => {
+exports.signUp = async (req, res, next) => {
   try {
     const user = await prisma.users.findUnique({
       where: { email: req.body.email },
@@ -18,8 +18,8 @@ const signUp = async (req, res, next) => {
       // Create a user
       const user = await prisma.users.create({
         data: {
-          firstName: req.body.firstName,
           lastName: req.body.lastName,
+          firstName: req.body.firstName,
           email: req.body.email,
           password: req.body.password,
         },
@@ -35,7 +35,7 @@ const signUp = async (req, res, next) => {
 };
 
 // Login
-const login = async (req, res, next) => {
+exports.login = async (req, res, next) => {
   try {
     const user = await prisma.users.findUnique({
       where: { email: req.body.email },
@@ -64,13 +64,7 @@ const login = async (req, res, next) => {
 };
 
 // Logout
-const logout = (req, res, next) => {
+exports.logout = (req, res, next) => {
   res.clearCookie("Token");
   res.status(200).json({ message: "Déconnexion réussie !" });
-};
-
-module.exports = {
-  signUp,
-  login,
-  logout,
 };

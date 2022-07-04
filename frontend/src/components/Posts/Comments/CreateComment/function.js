@@ -5,7 +5,7 @@
  * @param {Number} postId 
  * @param {Function} getAllPosts 
  * @param {Function} setDataPosts 
- * @param {Function} setDisplayPosts 
+ * @param {Function} setDisplayPage 
  */
 async function createComment(
   commentMessage,
@@ -13,7 +13,7 @@ async function createComment(
   postId,
   getAllPosts,
   setDataPosts,
-  setDisplayPosts
+  setDisplayPage
 ) {
   try {
     await fetch("http://localhost:3000/api/comment", {
@@ -28,7 +28,7 @@ async function createComment(
         post_id: postId,
       }),
     });
-    getAllPosts(setDataPosts, setDisplayPosts);
+    getAllPosts(setDataPosts, setDisplayPage);
   } catch (error) {
     console.log(error);
   }

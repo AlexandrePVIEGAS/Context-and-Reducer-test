@@ -3,7 +3,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // Create a comment
-const createComment = async (req, res, next) => {
+exports.createComment = async (req, res, next) => {
   try {
     const comment = await prisma.comments.create({
       data: {
@@ -20,7 +20,7 @@ const createComment = async (req, res, next) => {
 };
 
 // Update a comment
-const updateComment = async (req, res, next) => {
+exports.updateComment = async (req, res, next) => {
   try {
     const comment = await prisma.comments.update({
       where: { id: Number(req.params.id) },
@@ -36,7 +36,7 @@ const updateComment = async (req, res, next) => {
 };
 
 // Delete a comment
-const deleteComment = async (req, res, next) => {
+exports.deleteComment = async (req, res, next) => {
   try {
     const comment = await prisma.comments.delete({
       where: { id: Number(req.params.id) },
@@ -47,10 +47,4 @@ const deleteComment = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ error });
   }
-};
-
-module.exports = {
-  createComment,
-  updateComment,
-  deleteComment,
 };
