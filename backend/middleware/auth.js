@@ -15,10 +15,11 @@ exports.cookie = async (req, res, next) => {
   }
 };
 
-exports.auth = (x) => {
+// Check if the user is authorized to manage data
+exports.auth = (route) => {
   return async (req, res, next) => {
     let request = null;
-    switch (x) {
+    switch (route) {
       case "user":
         request = prisma.users;
         break;
@@ -35,10 +36,10 @@ exports.auth = (x) => {
       const token = req.cookies.Token;
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
       const userId = decodedToken.userId;
-      const result = await request.findUnique({
+      const data = await request.findUnique({
         where: { id: Number(req.params.id) },
       });
-      if (userId === 1 || userId === result.user_id) {
+      if (userId === 1 || userId === data.id || userId === data.user_id) {
         next();
       } else {
         res.status(403).json({ error: "Utilisateur non autorisé" });
