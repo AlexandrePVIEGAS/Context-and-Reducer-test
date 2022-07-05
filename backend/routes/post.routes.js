@@ -18,13 +18,12 @@ router.post(
 );
 router.put(
   "/:id",
-  check.cookie,
-  check.authorPost,
+  check.auth("post"),
   upload.postImage,
   validate.message,
   postCtrl.updatePost
 );
-router.delete("/:id", check.cookie, check.authorPost, postCtrl.deletePost);
+router.delete("/:id", check.auth("post"), postCtrl.deletePost);
 
 // Like a post
 router.post("/:id/like", check.cookie, postCtrl.likePost);

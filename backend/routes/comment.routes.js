@@ -10,15 +10,13 @@ const router = express.Router();
 router.post("/", check.cookie, commentCtrl.createComment);
 router.put(
   "/:id",
-  check.cookie,
-  check.authorComment,
+  check.auth("comment"),
   validate.message,
   commentCtrl.updateComment
 );
 router.delete(
   "/:id",
-  check.cookie,
-  check.authorComment,
+  check.auth("comment"),
   validate.message,
   commentCtrl.deleteComment
 );

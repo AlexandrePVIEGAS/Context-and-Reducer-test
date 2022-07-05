@@ -25,6 +25,12 @@ export const Form = styled.form`
     justify-content: flex-end;
     margin: 10px 0;
 
+    span {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+    }
+
     label {
       cursor: pointer;
       color: ${color.tertiary};

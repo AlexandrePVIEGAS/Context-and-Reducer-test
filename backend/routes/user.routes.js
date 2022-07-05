@@ -8,14 +8,14 @@ const validate = require("../middleware/validator");
 const router = express.Router();
 
 // Get, Update, Delete a user
-router.get("/:id", check.user, userCtrl.getUser);
+router.get("/:id", check.auth("user"), userCtrl.getUser);
 router.put(
   "/:id",
-  check.user,
+  check.auth("user"),
   upload.avatar,
   validate.editProfile,
   userCtrl.updateUser
 );
-router.delete("/:id", check.user, userCtrl.deleteUser);
+router.delete("/:id", check.auth("user"), userCtrl.deleteUser);
 
 module.exports = router;
