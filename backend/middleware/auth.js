@@ -35,7 +35,7 @@ exports.user = async (req, res, next) => {
 };
 
 // Check if the user is allowed to manage post's data
-exports.post = async (req, res, next) => {
+exports.authorPost = async (req, res, next) => {
   try {
     const token = req.cookies.Token;
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -54,7 +54,7 @@ exports.post = async (req, res, next) => {
 };
 
 // Check if the user is allowed to manage comment's data
-exports.comment = async (req, res, next) => {
+exports.authorComment = async (req, res, next) => {
   try {
     const token = req.cookies.Token;
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);

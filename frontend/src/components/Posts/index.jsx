@@ -36,7 +36,6 @@ function Posts({ setDisplayPage }) {
             {/* Comments */}
             <Comments
               post={post}
-              getAllPosts={getAllPosts}
               setDataPosts={setDataPosts}
               setDisplayPage={setDisplayPage}
             />

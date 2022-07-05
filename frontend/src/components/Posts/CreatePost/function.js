@@ -1,11 +1,11 @@
 /**
  * Create a post
- * @param {File} postImg 
- * @param {String} postMessage 
- * @param {Number} userId 
- * @param {Function} getAllPosts 
- * @param {Function} setDataPosts 
- * @param {Function} setDisplayPage 
+ * @param {File} postImg
+ * @param {String} postMessage
+ * @param {Number} userId
+ * @param {Function} getAllPosts
+ * @param {Function} setDataPosts
+ * @param {Function} setDisplayPage
  */
 async function createPost(
   postImg,

@@ -3,16 +3,30 @@ const express = require("express");
 const postCtrl = require("../controllers/post.controllers");
 const check = require("../middleware/auth");
 const upload = require("../middleware/multer-config");
+const validate = require("../middleware/validator");
 
 const router = express.Router();
 
-// Post CRUD
+// Get, Create, Update, Delete a post
 router.get("/", check.cookie, postCtrl.getAllPosts);
-router.post("/", check.cookie, upload.postImage, postCtrl.createPost);
-router.put("/:id", check.cookie, check.post, upload.postImage, postCtrl.updatePost);
-router.delete("/:id", check.cookie, check.post, postCtrl.deletePost);
+router.post(
+  "/",
+  check.cookie,
+  upload.postImage,
+  validate.message,
+  postCtrl.createPost
+);
+router.put(
+  "/:id",
+  check.cookie,
+  check.authorPost,
+  upload.postImage,
+  validate.message,
+  postCtrl.updatePost
+);
+router.delete("/:id", check.cookie, check.authorPost, postCtrl.deletePost);
 
-// Like
+// Like a post
 router.post("/:id/like", check.cookie, postCtrl.likePost);
 
 module.exports = router;

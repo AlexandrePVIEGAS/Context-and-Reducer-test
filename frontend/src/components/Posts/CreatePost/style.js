@@ -28,14 +28,20 @@ export const Form = styled.form`
     width: 98%;
     margin: 0 auto 1% auto;
 
+    span {
+      display: flex;
+      align-items: center;
+      margin-right: 5px;
+    }
+
     label {
       cursor: pointer;
       margin-right: 10px;
       color: ${color.tertiary};
+    }
 
-      input {
-        display: none;
-      }
+    input {
+      display: none;
     }
   }
 `;

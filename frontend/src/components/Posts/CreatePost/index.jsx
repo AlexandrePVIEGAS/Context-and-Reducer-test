@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,6 +12,13 @@ function CreatePost({ setDataPosts, setDisplayPage }) {
   const userId = JSON.parse(localStorage.getItem("userId"));
   const [postMessage, setPostMessage] = useState("");
   const [postImg, setPostImg] = useState(null);
+  const [fileName, setFileName] = useState("");
+  const ref = useRef();
+
+  const handleChange = (e) => {
+    setPostImg(e.target.files[0]);
+    setFileName(e.target.files[0].name);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +31,8 @@ function CreatePost({ setDataPosts, setDisplayPage }) {
       setDisplayPage
     );
     setPostMessage("");
+    setFileName("");
+    ref.current.value = null;
   };
 
   return (
@@ -40,14 +49,11 @@ function CreatePost({ setDataPosts, setDisplayPage }) {
 
         <div>
           {/* File input */}
+          <span>{fileName}</span>
           <label htmlFor="postImage">
             <FontAwesomeIcon icon={faImage} size="2x" />
-            <input
-              type="file"
-              id="postImage"
-              onChange={(e) => setPostImg(e.target.files[0])}
-            />
           </label>
+          <input ref={ref} type="file" id="postImage" onChange={handleChange} />
 
           {/* Submit button */}
           <Button type="submit" smallButton>

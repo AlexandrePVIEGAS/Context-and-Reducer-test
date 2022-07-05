@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,26 +8,35 @@ import { getAllPosts } from "../../function";
 import { updatePost } from "./function";
 import { Form, Div } from "./style";
 
-function Message({
+function Content({
   post,
   setDataPosts,
   setDisplayPage,
   editPost,
   setEditPost,
 }) {
-  const [postMessage, setPostMessage] = useState(post.message);
-  const [postImg, setPostImg] = useState(null);
+  const [postEditMessage, setPostEditMessage] = useState(post.message);
+  const [postEditImg, setPostEditImg] = useState(null);
+  const [fileName, setFileName] = useState("");
+  const ref = useRef();
+
+  const handleChange = (e) => {
+    setPostEditImg(e.target.files[0]);
+    setFileName(e.target.files[0].name);
+  };
 
   const handleSubmit = (postId) => {
     updatePost(
-      postMessage,
-      postImg,
+      postEditMessage,
+      postEditImg,
       postId,
       getAllPosts,
       setDataPosts,
       setDisplayPage
     );
     setEditPost(false);
+    setFileName("");
+    ref.current.value = null;
   };
 
   return (
@@ -36,10 +45,9 @@ function Message({
         <Form onSubmit={() => handleSubmit(post.id)}>
           {/* Message textarea */}
           <textarea
-            value={postMessage}
-            type={"text"}
-            name="message"
-            onChange={(e) => setPostMessage(e.target.value)}
+            value={postEditMessage}
+            type="text"
+            onChange={(e) => setPostEditMessage(e.target.value)}
           />
 
           {/* Image */}
@@ -49,15 +57,16 @@ function Message({
 
           <div>
             {/* File input */}
-            <label htmlFor="imageComment">
+            <span>{fileName}</span>
+            <label htmlFor="postEditImage">
               <FontAwesomeIcon icon={faImage} size="2x" />
-              <input
-                type="file"
-                id="imageComment"
-                name="imageComment"
-                onChange={(e) => setPostImg(e.target.files[0])}
-              />
             </label>
+            <input
+              ref={ref}
+              type="file"
+              id="postEditImage"
+              onChange={handleChange}
+            />
 
             {/* Submit button */}
             <Button type="submit" smallButton>
@@ -65,7 +74,11 @@ function Message({
             </Button>
 
             {/* Cancel button */}
-            <Button type="button" onClick={() => setEditPost(false)} smallButton>
+            <Button
+              type="button"
+              onClick={() => setEditPost(false)}
+              smallButton
+            >
               ANNULER
             </Button>
           </div>
@@ -74,6 +87,7 @@ function Message({
         <>
           {/* Message */}
           <p>{post.message}</p>
+
           {/* Image */}
           {post.imageUrl ? (
             <Div>
@@ -86,4 +100,4 @@ function Message({
   );
 }
 
-export default Message;
+export default Content;

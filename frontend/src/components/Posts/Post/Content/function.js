@@ -1,24 +1,24 @@
 /**
  * Update the post content
- * @param {String} postMessage 
- * @param {File} postImg 
- * @param {Number} postId 
- * @param {Function} getAllPosts 
- * @param {Function} setDataPosts 
- * @param {Function} setDisplayPage 
+ * @param {String} postEditMessage
+ * @param {File} postEditImg
+ * @param {Number} postId
+ * @param {Function} getAllPosts
+ * @param {Function} setDataPosts
+ * @param {Function} setDisplayPage
  */
 async function updatePost(
-  postMessage,
-  postImg,
+  postEditMessage,
+  postEditImg,
   postId,
   getAllPosts,
   setDataPosts,
   setDisplayPage
 ) {
-  if (postImg !== null) {
+  if (postEditImg !== null) {
     const formData = new FormData();
-    formData.append("message", postMessage);
-    formData.append("imageUrl", postImg);
+    formData.append("message", postEditMessage);
+    formData.append("imageUrl", postEditImg);
     try {
       await fetch("http://localhost:3000/api/post/" + postId, {
         method: "PUT",
@@ -37,7 +37,7 @@ async function updatePost(
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: postMessage }),
+        body: JSON.stringify({ message: postEditMessage }),
       });
       getAllPosts(setDataPosts, setDisplayPage);
     } catch (error) {

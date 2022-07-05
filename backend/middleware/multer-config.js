@@ -25,7 +25,6 @@ const storagePostImage = multer.diskStorage({
 exports.postImage = multer({
   storage: storagePostImage,
   limits: {
-    fieldNameSize: 50,
     fileSize: 104857600,
   },
   fileFilter: (req, file, callback) => {
@@ -63,7 +62,6 @@ const storageAvatar = multer.diskStorage({
 exports.avatar = multer({
   storage: storageAvatar,
   limits: {
-    fieldNameSize: 50,
     fileSize: 1048576,
   },
   fileFilter: (req, file, callback) => {
