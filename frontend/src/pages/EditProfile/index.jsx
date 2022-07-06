@@ -14,6 +14,7 @@ function EditProfile() {
       {displayPage ? (
         <Container>
           <Header />
+
           <EditProfileForm setDisplayPage={setDisplayPage} />
         </Container>
       ) : (

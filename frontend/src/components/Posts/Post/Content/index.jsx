@@ -36,6 +36,7 @@ function Content({
     );
     setEditPost(false);
     setFileName("");
+    setPostEditImg(null);
     ref.current.value = null;
   };
 
@@ -46,6 +47,7 @@ function Content({
           {/* Message textarea */}
           <textarea
             value={postEditMessage}
+            maxLength="255"
             type="text"
             onChange={(e) => setPostEditMessage(e.target.value)}
           />
@@ -63,8 +65,8 @@ function Content({
             </label>
             <input
               ref={ref}
-              type="file"
               id="postEditImage"
+              type="file"
               onChange={handleChange}
             />
 

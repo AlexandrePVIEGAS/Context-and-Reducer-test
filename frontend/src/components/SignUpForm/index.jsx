@@ -26,7 +26,8 @@ function SignUpForm({
       userEmail,
       userPassword,
       setIsSubmit,
-      setUserExist
+      setUserExist,
+      setFormErrors
     );
   };
 
@@ -80,17 +81,19 @@ function SignUpForm({
         <p>{formErrors.password}</p>
       </div>
 
+      <div>
+        <Button type="submit">Créer un compte</Button>
+      </div>
+
       {Object.keys(formErrors).length === 0 && isSubmit ? (
-        <Link to="/">
-          <Button type="button" greyButton>
-            Retour à la page de connexion
-          </Button>
-        </Link>
-      ) : (
         <div>
-          <Button type="submit">Créer un compte</Button>
+          <Link to="/">
+            <Button type="button" greyButton>
+              Retour à la page de connexion
+            </Button>
+          </Link>
         </div>
-      )}
+      ) : null}
     </Form>
   );
 }

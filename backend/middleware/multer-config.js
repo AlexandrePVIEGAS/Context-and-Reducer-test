@@ -66,7 +66,7 @@ exports.avatar = multer({
   },
   fileFilter: (req, file, callback) => {
     if (!MIME_TYPES_AVATAR[file.mimetype]) {
-      callback(new Error("Le type d'image doit être un jpg, jpeg, ou png !"));
+      callback(new Error("Le format d'image doit être un jpg, jpeg, ou png !"));
     } else {
       callback(null, true);
     }

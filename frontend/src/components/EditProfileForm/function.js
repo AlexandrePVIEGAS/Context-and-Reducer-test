@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /**
  * Get the user's data
  * @param {Number} id
@@ -39,17 +40,19 @@ async function getUser(
 /**
  * Update the user's data
  * @param {File} avatarFile
- * @param {Number} id
  * @param {Function} refFirstName
  * @param {Function} refLastName
+ * @param {Number} id
  * @param {Function} setImgSrc
+ * @param {Function} setFormErrors
  */
 async function updateUser(
   avatarFile,
-  id,
   refFirstName,
   refLastName,
-  setImgSrc
+  id,
+  setImgSrc,
+  setFormErrors,
 ) {
   if (avatarFile !== null) {
     const formData = new FormData();
@@ -63,13 +66,32 @@ async function updateUser(
         body: formData,
       });
       const data = await resultApi.json();
-      setImgSrc(data.user.avatarUrl);
+      if (resultApi.status === 400) {
+        data.errors[0].param === "lastName"
+          ? setFormErrors({
+              lastName: data.errors[0].msg,
+            })
+          : null;
+        data.errors[0].param === "firstName"
+          ? setFormErrors({
+              firstName: data.errors[0].msg,
+            })
+          : null;
+      } else {
+        setFormErrors({});
+        setImgSrc(data.user.avatarUrl);
+        alert("Profil mis à jour");
+      }
     } catch (error) {
+      setFormErrors({
+        avatar:
+          "L'avatar ne doit pas faire plus de 1Mo et doit être au format jpg, jpeg ou png !",
+      });
       console.log(error);
     }
   } else {
     try {
-      await fetch("http://localhost:3000/api/user/" + id, {
+      const resultApi = await fetch("http://localhost:3000/api/user/" + id, {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -80,6 +102,22 @@ async function updateUser(
           lastName: refLastName.current.value,
         }),
       });
+      const data = await resultApi.json();
+      if (resultApi.status === 400) {
+        data.errors[0].param === "lastName"
+          ? setFormErrors({
+              lastName: data.errors[0].msg,
+            })
+          : null;
+        data.errors[0].param === "firstName"
+          ? setFormErrors({
+              firstName: data.errors[0].msg,
+            })
+          : null;
+      } else {
+        setFormErrors({});
+        alert("Profil mis à jour");
+      }
     } catch (error) {
       console.log(error);
     }

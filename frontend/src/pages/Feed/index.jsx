@@ -14,6 +14,7 @@ function Feed() {
       {displayPage ? (
         <Container>
           <Header />
+
           <Posts setDisplayPage={setDisplayPage} />
         </Container>
       ) : (

@@ -32,6 +32,7 @@ function CreatePost({ setDataPosts, setDisplayPage }) {
     );
     setPostMessage("");
     setFileName("");
+    setPostImg(null);
     ref.current.value = null;
   };
 
@@ -41,15 +42,17 @@ function CreatePost({ setDataPosts, setDisplayPage }) {
         {/* Message textarea */}
         <textarea
           placeholder="Écrivez votre post ici..."
-          maxLength="255"
           value={postMessage}
+          maxLength="255"
           onChange={(e) => setPostMessage(e.target.value)}
           required
         />
 
         <div>
-          {/* File input */}
+          {/* File name */}
           <span>{fileName}</span>
+
+          {/* File input */}
           <label htmlFor="postImage">
             <FontAwesomeIcon icon={faImage} size="2x" />
           </label>

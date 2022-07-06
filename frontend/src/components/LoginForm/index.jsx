@@ -19,32 +19,36 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
+      {/* Email input */}
       <div>
         <label htmlFor="email">Email</label>
         <input
-          type="email"
           id="email"
+          type="email"
           onChange={(e) => setUserEmail(e.target.value)}
           required
         />
         <p>{formErrors.email}</p>
       </div>
 
+      {/* Password input */}
       <div>
         <label htmlFor="password">Mot de passe</label>
         <input
-          type="password"
           id="password"
+          type="password"
           onChange={(e) => setUserPassword(e.target.value)}
           required
         />
         <p>{formErrors.password}</p>
       </div>
 
+      {/* Submit button */}
       <div>
         <Button type="submit">Se connecter</Button>
       </div>
 
+      {/* Link to the sign up page */}
       <div>
         <Link to="/signup">
           <Button type="button" greyButton>

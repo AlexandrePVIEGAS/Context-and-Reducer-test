@@ -7,6 +7,7 @@ function Login() {
   return (
     <>
       <Img src={Logo} alt="logo" />
+
       <LoginForm />
     </>
   );

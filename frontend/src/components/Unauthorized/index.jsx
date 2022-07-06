@@ -5,11 +5,10 @@ import { Container } from "./style";
 function Unauthorized() {
   return (
     <Container>
+      {/* Logo of the web site */}
       <img src={Logo} alt="Logo" />
-      <span>
-        Vous devez vous connecter / créer un compte pour utiliser le réseau
-        social !
-      </span>
+
+      <span>Vous n'avez pas l'autorisation d'acceder à cette page !</span>
     </Container>
   );
 }

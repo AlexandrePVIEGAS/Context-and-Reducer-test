@@ -16,11 +16,13 @@ const Header = () => {
   return (
     <Nav>
       <Container>
+        {/* Logo that redirects to the feed poage when the user click on it */}
         <Link to="/feed">
           <img src={Logo} alt="logo" />
         </Link>
 
         <div>
+          {/* Button that redirects to the edit profile page when the user click on it */}
           <Link to={"/edit_profile/" + userId}>
             <Button>
               <FontAwesomeIcon icon={faPenToSquare} size="2x" />
@@ -29,6 +31,7 @@ const Header = () => {
             </Button>
           </Link>
 
+          {/* Button that disconnect the user when he click on it */}
           <Button onClick={(e) => disconnect()}>
             <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
 

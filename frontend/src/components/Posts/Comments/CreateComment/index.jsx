@@ -37,10 +37,10 @@ function CreateComment({ post, setDataPosts, setDisplayPage }) {
 
         {/* Message input */}
         <input
-          type="text"
           placeholder="Écrivez votre commentaire ici..."
-          maxLength="255"
           value={commentMessage}
+          maxLength="255"
+          type="text"
           onChange={(e) => setCommentMessage(e.target.value)}
           required
         />

@@ -14,11 +14,6 @@ router.put(
   validate.message,
   commentCtrl.updateComment
 );
-router.delete(
-  "/:id",
-  check.auth("comment"),
-  validate.message,
-  commentCtrl.deleteComment
-);
+router.delete("/:id", check.auth("comment"), commentCtrl.deleteComment);
 
 module.exports = router;
