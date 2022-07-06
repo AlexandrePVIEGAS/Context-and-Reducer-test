@@ -2,9 +2,10 @@ import { useState } from "react";
 
 import Header from "../../components/Header";
 import EditProfileForm from "../../components/EditProfileForm";
+import Footer from "../../components/Footer";
 import Unauthorized from "../../components/Unauthorized";
 
-import { Container } from "./style";
+import { Div, Container } from "./style";
 
 function EditProfile() {
   const [displayPage, setDisplayPage] = useState(true);
@@ -12,11 +13,15 @@ function EditProfile() {
   return (
     <>
       {displayPage ? (
-        <Container>
-          <Header />
+        <Div>
+          <Container>
+            <Header />
 
-          <EditProfileForm setDisplayPage={setDisplayPage} />
-        </Container>
+            <EditProfileForm setDisplayPage={setDisplayPage} />
+          </Container>
+
+          <Footer />
+        </Div>
       ) : (
         <Unauthorized />
       )}

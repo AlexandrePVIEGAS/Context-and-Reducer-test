@@ -2,9 +2,10 @@ import { useState } from "react";
 
 import Header from "../../components/Header";
 import Posts from "../../components/Posts";
+import Footer from "../../components/Footer";
 import Unauthorized from "../../components/Unauthorized";
 
-import { Container } from "./style";
+import { Div, Container } from "./style";
 
 function Feed() {
   const [displayPage, setDisplayPage] = useState(true);
@@ -12,11 +13,15 @@ function Feed() {
   return (
     <>
       {displayPage ? (
-        <Container>
-          <Header />
+        <Div>
+          <Container>
+            <Header />
 
-          <Posts setDisplayPage={setDisplayPage} />
-        </Container>
+            <Posts setDisplayPage={setDisplayPage} />
+          </Container>
+
+          <Footer />
+        </Div>
       ) : (
         <Unauthorized />
       )}

@@ -14,32 +14,34 @@ const Header = () => {
   const userId = JSON.parse(localStorage.getItem("userId"));
 
   return (
-    <Nav>
-      <Container>
-        {/* Logo that redirects to the feed poage when the user click on it */}
-        <Link to="/feed">
-          <img src={Logo} alt="logo" />
-        </Link>
-
-        <div>
-          {/* Button that redirects to the edit profile page when the user click on it */}
-          <Link to={"/edit_profile/" + userId}>
-            <Button>
-              <FontAwesomeIcon icon={faPenToSquare} size="2x" />
-
-              <span>Editer le profil</span>
-            </Button>
+    <header>
+      <Nav>
+        <Container>
+          {/* Logo that redirects to the feed poage when the user click on it */}
+          <Link to="/feed">
+            <img src={Logo} alt="logo" />
           </Link>
 
-          {/* Button that disconnect the user when he click on it */}
-          <Button onClick={(e) => disconnect()}>
-            <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
+          <div>
+            {/* Button that redirects to the edit profile page when the user click on it */}
+            <Link to={"/edit_profile/" + userId}>
+              <Button>
+                <FontAwesomeIcon icon={faPenToSquare} size="2x" />
 
-            <span>Se déconnecter</span>
-          </Button>
-        </div>
-      </Container>
-    </Nav>
+                <span>Editer le profil</span>
+              </Button>
+            </Link>
+
+            {/* Button that disconnect the user when he click on it */}
+            <Button onClick={(e) => disconnect()}>
+              <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
+
+              <span>Se déconnecter</span>
+            </Button>
+          </div>
+        </Container>
+      </Nav>
+    </header>
   );
 };
 
